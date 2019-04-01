@@ -1,0 +1,60 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project xmlns="http://maven.apache.org/POM/4.0.0"
+         xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+         xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+    <parent>
+        <artifactId>booking-rest</artifactId>
+        <groupId>ro.sda</groupId>
+        <version>1.0-SNAPSHOT</version>
+    </parent>
+    <modelVersion>4.0.0</modelVersion>
+
+    <artifactId>booking-rest-loader</artifactId>
+    <packaging>war</packaging>
+    <name>sda-hypermarket-rest-loader</name>
+
+    <dependencies>
+        <!-- INTERNAL Dependencies START -->
+        <dependency>
+            <groupId>ro.sda</groupId>
+            <artifactId>hypermarket-rest-core</artifactId>
+            <version>${project.parent.version}</version>
+        </dependency>
+
+        <!-- APACHE COMMONS Dependencies START -->
+        <dependency>
+            <groupId>commons-dbcp</groupId>
+            <artifactId>commons-dbcp</artifactId>
+        </dependency>
+        <!-- APACHE COMMONS Dependencies END -->
+
+        <!-- MySQL Connector Dependencies START -->
+        <dependency>
+            <groupId>mysql</groupId>
+            <artifactId>mysql-connector-java</artifactId>
+        </dependency>
+        <!-- MySQL Connector Dependencies END -->
+
+        <!-- JUnit Dependencies START -->
+        <dependency>
+            <groupId>junit</groupId>
+            <artifactId>junit</artifactId>
+        </dependency>
+        <!-- JUnit Dependencies END -->
+
+        <!-- CORS Filter Dependencies START -->
+        <dependency>
+            <groupId>com.thetransactioncompany</groupId>
+            <artifactId>cors-filter</artifactId>
+        </dependency>
+        <!-- CORS Filter Dependencies END -->
+
+        <!-- JBoss Logging Dependencies START -->
+        <dependency>
+            <groupId>org.jboss.logging</groupId>
+            <artifactId>jboss-logging</artifactId>
+        </dependency>
+        <!-- JBoss Logging Dependencies END -->
+    </dependencies>
+
+</project>
