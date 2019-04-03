@@ -1,4 +1,4 @@
-package ro.sda.booking.core.service;
-
-public interface ClientService {
-}
+//package ro.sda.booking.core.service;
+//
+//public interface ClientService {
+//}

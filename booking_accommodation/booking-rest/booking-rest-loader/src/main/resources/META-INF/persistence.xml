@@ -4,8 +4,8 @@
              version="2.1">
     <persistence-unit name="booking" transaction-type="RESOURCE_LOCAL">
         <provider>org.hibernate.jpa.HibernatePersistenceProvider</provider>
-        <class>ro.sda.hypermarket.core.entity.Client</class>
-
+        <!--<class>ro.sda.booking.core.entity.Client</class>-->
+        <class>ro.sda.booking.core.entity.Host</class>
         <exclude-unlisted-classes>true</exclude-unlisted-classes>
 
         <properties>

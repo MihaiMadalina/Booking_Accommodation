@@ -11,13 +11,13 @@
 
     <artifactId>booking-rest-loader</artifactId>
     <packaging>war</packaging>
-    <name>sda-hypermarket-rest-loader</name>
+    <name>sda-booking-rest-loader</name>
 
     <dependencies>
         <!-- INTERNAL Dependencies START -->
         <dependency>
             <groupId>ro.sda</groupId>
-            <artifactId>hypermarket-rest-core</artifactId>
+            <artifactId>booking-rest-core</artifactId>
             <version>${project.parent.version}</version>
         </dependency>
 

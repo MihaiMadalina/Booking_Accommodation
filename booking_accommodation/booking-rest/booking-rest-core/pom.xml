@@ -17,7 +17,7 @@
         <!-- INTERNAL Dependencies START -->
         <dependency>
             <groupId>ro.sda</groupId>
-            <artifactId>hypermarket-core</artifactId>
+            <artifactId>booking-core</artifactId>
         </dependency>
         <!-- INTERNAL Dependencies END -->
 
