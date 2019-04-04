@@ -8,7 +8,7 @@ import ro.sda.booking.core.repository.HostRepository;
 
 import java.util.List;
 
-@Service("productCategoryService")
+@Service("hostService")
 @Transactional(readOnly = true, rollbackFor = Exception.class)
 public class HostServiceImpl implements HostService {
 
