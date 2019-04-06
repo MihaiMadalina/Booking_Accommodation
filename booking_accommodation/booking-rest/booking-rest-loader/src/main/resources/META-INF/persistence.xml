@@ -8,6 +8,7 @@
         <class>ro.sda.booking.core.entity.Host</class>
         <class>ro.sda.booking.core.entity.Property</class>
         <class>ro.sda.booking.core.entity.Booking</class>
+        <class>ro.sda.booking.core.entity.Availability</class>
         <exclude-unlisted-classes>true</exclude-unlisted-classes>
 
         <properties>

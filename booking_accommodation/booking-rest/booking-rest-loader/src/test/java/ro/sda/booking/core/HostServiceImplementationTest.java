@@ -27,9 +27,9 @@ public class HostServiceImplementationTest {
     public void createHostTest() {
         Host host = new Host();
         host.setName("Boz");
-        host.setEmail("sorina.boz@gmail.com");
+        host.setEmail("s.boz@gmail.com");
         Host expectedHost = hostService.create(host);
-        Host actualHost = hostService.getHostByEmail("sorina.boz@gmail.com");
+        Host actualHost = hostService.getHostByEmail("s.boz@gmail.com");
         Assert.assertEquals(expectedHost, actualHost);
     }
 
