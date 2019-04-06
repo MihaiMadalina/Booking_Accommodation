@@ -105,7 +105,7 @@ public class Booking extends BaseEntity {
         if (this == o) return true;
         if (!(o instanceof Booking)) return false;
         Booking booking = (Booking) o;
-        return super.getId()==(client.getId()) &&
+        return super.getId()==(booking.getId()) &&
                 getPersonsNo() == booking.getPersonsNo() &&
                 getRoomsNo() == booking.getRoomsNo() &&
                 getClient().equals(booking.getClient()) &&
