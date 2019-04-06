@@ -30,8 +30,8 @@ public class Property extends BaseEntity {
         return name;
     }
 
-    public void setName(String accomodationName) {
-        this.name = accomodationName;
+    public void setName(String name) {
+        this.name = name;
     }
 
     public String getAddress() {
@@ -86,7 +86,7 @@ public class Property extends BaseEntity {
     @Override
     public String toString() {
         return "Property{" +
-                "id=" + getId() +
+                "id=" + getId()+
                 ", name='" + name + '\'' +
                 ", address='" + address + '\'' +
                 ", telephone='" + telephone + '\'' +
