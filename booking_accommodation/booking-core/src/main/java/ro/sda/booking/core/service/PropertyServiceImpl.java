@@ -28,7 +28,7 @@ public class PropertyServiceImpl implements PropertyService {
 
     @Override
     public Property getPropertyByName(String name) {
-        return propertyRepository.findByPropertyByName(name);
+        return propertyRepository.findPropertyByName(name);
     }
 
     @Override

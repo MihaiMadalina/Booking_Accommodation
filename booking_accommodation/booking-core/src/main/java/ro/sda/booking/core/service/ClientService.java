@@ -12,7 +12,7 @@ public interface ClientService {
 
     Client getClientById(Long id);
 
-    Client getClientByName(String lastName);
+    Client getClientByName(String name);
 
     List<Client> findAll();
 

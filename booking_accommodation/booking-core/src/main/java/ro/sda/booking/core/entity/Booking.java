@@ -34,7 +34,7 @@ public class Booking extends BaseEntity {
     private int roomsNo;
 
     @Column(name = "booking_date", nullable = false)
-    private LocalDate date;
+    private LocalDate bookingDate;
 
     public Client getClient() {
         return client;
@@ -92,12 +92,12 @@ public class Booking extends BaseEntity {
         this.roomsNo = roomsNo;
     }
 
-    public LocalDate getDate() {
-        return date;
+    public LocalDate getBookingDate() {
+        return bookingDate;
     }
 
-    public void setDate(LocalDate date) {
-        this.date = date;
+    public void setBookingDate(LocalDate bookingDate) {
+        this.bookingDate = bookingDate;
     }
 
     @Override
@@ -113,12 +113,12 @@ public class Booking extends BaseEntity {
                 getCheckIn().equals(booking.getCheckIn()) &&
                 getCheckOut().equals(booking.getCheckOut()) &&
                 getRoomType().equals(booking.getRoomType()) &&
-                getDate().equals(booking.getDate());
+                getBookingDate().equals(booking.getBookingDate());
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(getClient(), getProperty(), getCheckIn(), getCheckOut(), getPersonsNo(), getRoomType(), getRoomsNo(), getDate(), getId());
+        return Objects.hash(getClient(), getProperty(), getCheckIn(), getCheckOut(), getPersonsNo(), getRoomType(), getRoomsNo(), getBookingDate(), getId());
     }
 
     @Override
@@ -132,7 +132,7 @@ public class Booking extends BaseEntity {
                 ", personsNo=" + personsNo +
                 ", roomType='" + roomType + '\'' +
                 ", roomsNo=" + roomsNo +
-                ", date=" + date +
+                ", bookingDate=" + bookingDate +
                 '}';
     }
 }

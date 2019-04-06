@@ -4,5 +4,5 @@ import ro.sda.booking.core.base.EntityRepository;
 import ro.sda.booking.core.entity.Property;
 
 public interface PropertyRepository extends EntityRepository<Property> {
-    Property findByPropertyByName(String name);
+    Property findPropertyByName(String name);
 }
