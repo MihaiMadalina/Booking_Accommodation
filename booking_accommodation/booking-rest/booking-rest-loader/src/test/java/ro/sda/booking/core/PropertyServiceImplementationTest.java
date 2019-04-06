@@ -95,7 +95,4 @@ public class PropertyServiceImplementationTest {
         properties = propertyService.getAll();
         Assert.assertEquals(size-1, properties.size());
     }
-
-
-
 }

@@ -81,6 +81,4 @@ public class HostServiceImplementationTest {
         hosts = hostService.getAll();
         Assert.assertEquals(size - 1, hosts.size());
     }
-
-
 }

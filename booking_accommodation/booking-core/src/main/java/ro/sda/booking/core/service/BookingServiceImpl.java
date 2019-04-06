@@ -22,7 +22,7 @@ public class BookingServiceImpl implements BookingService {
 
     @Override
     public Booking getBooking(Long id) {
-        return bookingRepository.findBBookingByClientId(id);
+        return bookingRepository.findById(id);
     }
 
     @Override
