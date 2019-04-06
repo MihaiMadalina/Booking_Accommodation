@@ -6,7 +6,7 @@
         <provider>org.hibernate.jpa.HibernatePersistenceProvider</provider>
         <class>ro.sda.booking.core.entity.Client</class>
         <class>ro.sda.booking.core.entity.Host</class>
-        <class>ro.sda.booking.core.entity.Accommodation</class>
+        <class>ro.sda.booking.core.entity.Property</class>
         <exclude-unlisted-classes>true</exclude-unlisted-classes>
 
         <properties>

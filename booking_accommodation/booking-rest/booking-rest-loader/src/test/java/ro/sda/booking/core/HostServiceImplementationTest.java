@@ -26,10 +26,7 @@ public class HostServiceImplementationTest {
     @Rollback(false)
     public void createHostTest() {
         Host host = new Host();
-        host.setLastName("Boz");
-        host.setFirstName("Sorina");
-        host.setCity("Iasi");
-        host.setPhoneNumber("000000000");
+        host.setName("Boz");
         host.setEmail("sorina.boz@gmail.com");
         Host expectedHost = hostService.create(host);
         Host actualHost = hostService.getHostByEmail("sorina.boz@gmail.com");
@@ -67,7 +64,7 @@ public class HostServiceImplementationTest {
     @Rollback(false)
     public void updateHostTest() {
         Host host = hostService.getHost(1l);
-        host.setLastName("Roman");
+        host.setName("Roman");
         Host expectedHost = hostService.update(host);
         Host actualHost = hostService.getHost(1L);
         Assert.assertEquals(expectedHost, actualHost);
