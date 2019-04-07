@@ -39,24 +39,24 @@ public class RatingServiceImplementationTest {
         Property property = new Property();
         Client client = new Client();
         rating.setPropertyId(propertyService.getProperty(1L));
-        rating.setClientId(clientService.getClientById(2L));
+        rating.setClientId(clientService.getClientById(3L));
         rating.setComment("Very nice and clean. Friendly staff.");
-        rating.setRating(4);
+        rating.setRating(3);
         ratingService.create(rating);
         Assert.assertNotNull(rating);
     }
 
-//    @Test
-//    @Transactional
-//    @Rollback(false)
-//    public void getRatingByPropertyIdAndClientIdTest() {
-//        Rating rating = new Rating();
-//        Client clientId = clientService.getClientById(2L);
-//        Property propertyId = propertyService.getProperty(1L);
-//        Rating expectedRating = ratingService.getRatingByPropertyIdAndClientId(propertyId, clientId);
-//        Rating actualRating = ratingService.getRating(1L);
-//        Assert.assertEquals(expectedRating, actualRating);
-//    }
+    @Test
+    @Transactional
+    @Rollback(false)
+    public void getRatingByPropertyIdAndClientIdTest() {
+        Rating rating = new Rating();
+        Client clientId = clientService.getClientById(3L);
+        Property propertyId = propertyService.getProperty(1L);
+        Rating expectedRating = ratingService.getRatingByPropertyIdAndClientId(propertyId, clientId);
+        Rating actualRating = ratingService.getRating(4L);
+        Assert.assertEquals(expectedRating, actualRating);
+    }
 
     @Test
     @Transactional
