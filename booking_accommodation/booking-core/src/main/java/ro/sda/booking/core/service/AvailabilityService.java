@@ -9,7 +9,7 @@ public interface AvailabilityService {
 
     Availability getAvailability(Long id);
 
-    Availability findAvailabilityByPropertyIdAndRoomName (Long id, String roomName);
+    Availability findAvailabilityByPropertyIdAndRoomName(Long id, String roomName);
 
     List<Availability> getAll();
 
