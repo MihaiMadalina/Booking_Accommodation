@@ -37,19 +37,19 @@ public class AvailabilityServiceImplementationTest {
     @Rollback(false)
     public void createAvailabilityTest(){
         Host host = new Host();
-        host.setName("Boz");
-        host.setEmail("sorina.boz@gmail.com");
+        host.setName("Popa");
+        host.setEmail("sorina.popa@gmail.com");
         hostService.create(host) ;
        Property property = new Property();
-       property.setName("Rixos");
-       property.setTelephone("865498974");
-       property.setEmail("contact@rixos.com");
+       property.setName("Radisson Blue");
+       property.setTelephone("436564");
+       property.setEmail("contact@radisson.com");
        property.setAddress("London");
        property.setHost(host);
        propertyService.create(property);
         Availability expectedAvailability = new Availability();
         expectedAvailability.setProperty(property);
-        expectedAvailability.setRoomName("Room1");
+        expectedAvailability.setRoomName("Room ABBA");
         expectedAvailability.setRoomType("Single");
         expectedAvailability.setPriceSingle(100.00);
         LocalDate fromDate = LocalDate.of(2019, 4, 1);
@@ -65,17 +65,17 @@ public class AvailabilityServiceImplementationTest {
     @Transactional
     @Rollback(false)
     public void getAvailabilityByIdTest(){
-        Availability expectedAvailability = availabilityService.getAvailability(1L);
-        List<Availability> availabilities = availabilityService.getAll();
-        Assert.assertEquals(expectedAvailability, availabilities.get(0));
+        Availability expectedAvailability = availabilityService.getAvailability(6L);
+        Availability actualAvailability = availabilityService.findAvailabilityByPropertyIdAndRoomName(4L, "Room ABBA");
+        Assert.assertEquals(expectedAvailability, actualAvailability);
     }
 
     @Test
     @Transactional
     @Rollback(false)
     public void getAvailabilityByPropertyIdAndRoomNameTest(){
-        Availability expectedAvailability = availabilityService.findAvailabilityByPropertyIdAndRoomName(2L, "Room1");
-        Availability actualAvailability = availabilityService.getAvailability(1L);
+        Availability expectedAvailability = availabilityService.findAvailabilityByPropertyIdAndRoomName(4L, "Room ABBA");
+        Availability actualAvailability = availabilityService.getAvailability(6L);
         Assert.assertEquals(expectedAvailability, actualAvailability);
     }
     @Test
@@ -90,7 +90,7 @@ public class AvailabilityServiceImplementationTest {
     @Transactional
     @Rollback(false)
     public void updateAvailabilitiesTest(){
-        Availability expectedAvailability = availabilityService.getAvailability(1L);
+        Availability expectedAvailability = availabilityService.getAvailability(6L);
         expectedAvailability.setRoomType("Double");
         expectedAvailability.setPriceSingle(120.00);
         expectedAvailability.setPriceDouble(180.00);
@@ -100,7 +100,7 @@ public class AvailabilityServiceImplementationTest {
         expectedAvailability.setFromDate(fromDate);
         expectedAvailability.setToDate(toDate);
         expectedAvailability = availabilityService.update(expectedAvailability);
-        Availability actualAvailability = availabilityService.findAvailabilityByPropertyIdAndRoomName(2L, "Room A");
+        Availability actualAvailability = availabilityService.findAvailabilityByPropertyIdAndRoomName(4L, "Room A");
         Assert.assertEquals(expectedAvailability, actualAvailability);
     }
 
@@ -110,7 +110,7 @@ public class AvailabilityServiceImplementationTest {
     public void deleteAvailabilityTest(){
         List<Availability> availabilities = availabilityService.getAll();
         int size = availabilities.size();
-        Availability availability = availabilityService.getAvailability(1L);
+        Availability availability = availabilityService.getAvailability(6L);
         availabilityService.delete(availability);
         availabilities = availabilityService.getAll();
         Assert.assertEquals(size-1, availabilities.size());
