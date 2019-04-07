@@ -6,6 +6,7 @@ import org.springframework.transaction.annotation.Transactional;
 import ro.sda.booking.core.entity.Availability;
 import ro.sda.booking.core.repository.AvailabilityRepository;
 
+import java.time.LocalDate;
 import java.util.List;
 
 @Service("availabilityService")
@@ -43,4 +44,11 @@ public class AvailabilityServiceImpl implements AvailabilityService {
     public void delete(Availability availability) {
         availabilityRepository.delete(availability);
     }
+
+    @Override
+    public List<Availability> findAvailabilityByFromDateGreaterThanEqualAndToDateLessThanEqual(LocalDate fromDate, LocalDate toDate) {
+        return availabilityRepository.findAvailabilityByFromDateGreaterThanEqualAndToDateLessThanEqual(fromDate, toDate);
+    }
+
+
 }
