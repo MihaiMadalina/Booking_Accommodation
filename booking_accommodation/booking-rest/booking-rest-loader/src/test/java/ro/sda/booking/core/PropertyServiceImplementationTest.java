@@ -10,8 +10,10 @@ import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 import org.springframework.transaction.annotation.Transactional;
 import ro.sda.booking.core.entity.Property;
 import ro.sda.booking.core.entity.Host;
+import ro.sda.booking.core.entity.Rating;
 import ro.sda.booking.core.service.PropertyService;
 import ro.sda.booking.core.service.HostService;
+import ro.sda.booking.core.service.RatingService;
 
 import java.util.List;
 
