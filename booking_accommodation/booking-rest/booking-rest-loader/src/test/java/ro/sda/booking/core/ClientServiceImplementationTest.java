@@ -36,7 +36,7 @@ public class ClientServiceImplementationTest {
     @Transactional
     @Rollback(false)
     public void getClientByIdTest() {
-        Client expectedClient = clientService.getClientById(2L);
+        Client expectedClient = clientService.getClientById(1L);
         List<Client> clients = clientService.findAll();
         Assert.assertEquals(expectedClient, clients.get(0));
     }
@@ -44,8 +44,8 @@ public class ClientServiceImplementationTest {
     @Transactional
     @Rollback(false)
     public void getClientByNameTest() {
-        Client expectedClient = clientService.getClientByName("Roxana Preda");
-        Client actualClient = clientService.getClientById(2L);
+        Client expectedClient = clientService.getClientByName("Alina Mocanu");
+        Client actualClient = clientService.getClientById(1L);
         Assert.assertEquals(expectedClient, actualClient);
     }
 
@@ -61,12 +61,12 @@ public class ClientServiceImplementationTest {
     @Transactional
     @Rollback(false)
     public void updateClientTest() {
-        Client client = clientService.getClientById(3L);
+        Client client = clientService.getClientById(1L);
         client.setName("Andreea Marin");
         client.setContact("0754334478");
         client.setEmail("andreea.marin@yahoo.com");
         Client expectedClient = clientService.update(client);
-        Client actualClient = clientService.getClientById(3L);
+        Client actualClient = clientService.getClientById(1L);
         Assert.assertEquals(expectedClient, actualClient);
     }
 
@@ -76,7 +76,7 @@ public class ClientServiceImplementationTest {
     public void deleteClientTest() {
         List<Client> clients = clientService.findAll();
         int size = clients.size();
-        Client client = clientService.getClientById(1L);
+        Client client = clientService.getClientById(2L);
         clientService.delete(client);
         clients = clientService.findAll();
         Assert.assertEquals(size - 1, clients.size());

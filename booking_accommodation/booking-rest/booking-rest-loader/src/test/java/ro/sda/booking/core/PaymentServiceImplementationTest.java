@@ -34,7 +34,7 @@ public class PaymentServiceImplementationTest {
         Payment payment = new Payment();
         Booking booking = new Booking();
         payment.setAmount(120.0);
-        payment.setBooking(bookingService.getBooking(2L));
+        payment.setBooking(bookingService.getBooking(1L));
         LocalDate paymentDate = LocalDate.of(2019, 4, 6);
         payment.setPaymentDate(paymentDate);
         paymentService.create(payment);
@@ -62,13 +62,13 @@ public class PaymentServiceImplementationTest {
     @Transactional
     @Rollback(false)
     public void updatePaymentTest() {
-        Payment payment = paymentService.getPayment(2L);
+        Payment payment = paymentService.getPayment(1L);
         payment.setAmount(2501.0);
         payment.setBooking(bookingService.getBooking(1L));
         LocalDate paymentDate = LocalDate.of(2020, 1, 6);
         payment.setPaymentDate(paymentDate);
         Payment expectedPayment = paymentService.update(payment);
-        Payment actualPayment = paymentService.getPayment(2L);
+        Payment actualPayment = paymentService.getPayment(1L);
         Assert.assertEquals(expectedPayment, actualPayment);
     }
 
@@ -78,7 +78,7 @@ public class PaymentServiceImplementationTest {
     public void deletePaymentTest() {
         List<Payment> payments = paymentService.getAll();
         int size = payments.size();
-        Payment payment = paymentService.getPayment(3L);
+        Payment payment = paymentService.getPayment(2L);
         paymentService.delete(payment);
         payments = paymentService.getAll();
         Assert.assertEquals(size - 1, payments.size());

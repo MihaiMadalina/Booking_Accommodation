@@ -11,6 +11,7 @@ import org.springframework.transaction.annotation.Transactional;
 import ro.sda.booking.core.entity.Booking;
 import ro.sda.booking.core.entity.Client;
 import ro.sda.booking.core.entity.Property;
+import ro.sda.booking.core.entity.RoomType;
 import ro.sda.booking.core.service.BookingService;
 import ro.sda.booking.core.service.ClientService;
 import ro.sda.booking.core.service.PropertyService;
@@ -41,13 +42,13 @@ public class BookingServiceImplementationTest {
         Property property = new Property();
         Client client = new Client();
         booking.setProperty(propertyService.getProperty(1L));
-        booking.setClient(clientService.getClientById(2L));
+        booking.setClient(clientService.getClientById(1L));
         LocalDate checkInDate = LocalDate.of(2019, 4, 7);
         booking.setCheckIn(checkInDate);
         LocalDate checkOutDate = LocalDate.of(2019, 4, 10);
         booking.setCheckOut(checkOutDate);
         booking.setPersonsNo(2);
-        booking.setRoomType("double");
+        booking.setRoomType(RoomType.DOUBLE);
         booking.setRoomsNo(1);
         LocalDate bookingDate = LocalDate.of(2019, 4, 6);
         booking.setBookingDate(bookingDate);
@@ -69,7 +70,7 @@ public class BookingServiceImplementationTest {
     @Rollback(false)
     public void getAllBookingsTest() {
         List<Booking> bookings = bookingService.getAll();
-        Assert.assertEquals(1, bookings.size());
+        Assert.assertEquals(2, bookings.size());
     }
 
     @Test
@@ -78,13 +79,13 @@ public class BookingServiceImplementationTest {
     public void updateBookingTest() {
         Booking booking = bookingService.getBooking(2L);
         booking.setProperty(propertyService.getProperty(1L));
-        booking.setClient(clientService.getClientById(2L));
+        booking.setClient(clientService.getClientById(1L));
         LocalDate checkInDate = LocalDate.of(2019, 8, 21);
         booking.setCheckIn(checkInDate);
         LocalDate checkOutDate = LocalDate.of(2019, 8, 28);
         booking.setCheckOut(checkOutDate);
         booking.setPersonsNo(1);
-        booking.setRoomType("single");
+        booking.setRoomType(RoomType.SINGLE);
         booking.setRoomsNo(1);
         LocalDate bookingDate = LocalDate.of(2019, 4, 6);
         booking.setBookingDate(bookingDate);
@@ -99,7 +100,7 @@ public class BookingServiceImplementationTest {
     public void deleteBookingTest() {
         List<Booking> bookings = bookingService.getAll();
         int size = bookings.size();
-        Booking booking = bookingService.getBooking(3L);
+        Booking booking = bookingService.getBooking(2L);
         bookingService.delete(booking);
         bookings = bookingService.getAll();
         Assert.assertEquals(size - 1, bookings.size());

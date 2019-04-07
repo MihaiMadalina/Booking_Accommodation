@@ -39,9 +39,9 @@ public class RatingServiceImplementationTest {
         Property property = new Property();
         Client client = new Client();
         rating.setPropertyId(propertyService.getProperty(1L));
-        rating.setClientId(clientService.getClientById(3L));
+        rating.setClientId(clientService.getClientById(1L));
         rating.setComment("Very nice and clean. Friendly staff.");
-        rating.setRating(3);
+        rating.setRating(4);
         ratingService.create(rating);
         Assert.assertNotNull(rating);
     }
@@ -51,10 +51,10 @@ public class RatingServiceImplementationTest {
     @Rollback(false)
     public void getRatingByPropertyIdAndClientIdTest() {
         Rating rating = new Rating();
-        Client clientId = clientService.getClientById(3L);
+        Client clientId = clientService.getClientById(1L);
         Property propertyId = propertyService.getProperty(1L);
         Rating expectedRating = ratingService.getRatingByPropertyIdAndClientId(propertyId, clientId);
-        Rating actualRating = ratingService.getRating(4L);
+        Rating actualRating = ratingService.getRating(1L);
         Assert.assertEquals(expectedRating, actualRating);
     }
 
@@ -80,8 +80,8 @@ public class RatingServiceImplementationTest {
     @Rollback(false)
     public void updateRatingTest() {
         Rating rating = ratingService.getRating(2L);
-        rating.setPropertyId(propertyService.getProperty(1L));
-        rating.setClientId(clientService.getClientById(2L));
+        rating.setPropertyId(propertyService.getProperty(3L));
+        rating.setClientId(clientService.getClientById(1L));
         rating.setComment("Very disappointing experience. I do not recommend this place.");
         rating.setRating(1);
         Rating expectedRating = ratingService.update(rating);

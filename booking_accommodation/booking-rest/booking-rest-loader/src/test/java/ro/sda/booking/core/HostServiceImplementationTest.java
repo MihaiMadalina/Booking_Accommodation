@@ -27,9 +27,9 @@ public class HostServiceImplementationTest {
     public void createHostTest() {
         Host host = new Host();
         host.setName("Boz");
-        host.setEmail("s.boz@gmail.com");
+        host.setEmail("sorana.boz@gmail.com");
         Host expectedHost = hostService.create(host);
-        Host actualHost = hostService.getHostByEmail("s.boz@gmail.com");
+        Host actualHost = hostService.getHostByEmail("sorana.boz@gmail.com");
         Assert.assertEquals(expectedHost, actualHost);
     }
 
@@ -56,7 +56,7 @@ public class HostServiceImplementationTest {
     @Rollback(false)
     public void getAllTest() {
         List<Host> hosts = hostService.getAll();
-        Assert.assertEquals(1, hosts.size());
+        Assert.assertEquals(6, hosts.size());
     }
 
     @Test
@@ -76,7 +76,7 @@ public class HostServiceImplementationTest {
     public void deleteHostTest() {
         List<Host> hosts = hostService.getAll();
         int size = hosts.size();
-        Host host = hostService.getHost(1L);
+        Host host = hostService.getHost(6L);
         hostService.delete(host);
         hosts = hostService.getAll();
         Assert.assertEquals(size - 1, hosts.size());

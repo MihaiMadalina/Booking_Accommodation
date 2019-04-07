@@ -16,8 +16,10 @@ public class Availability extends BaseEntity {
     private LocalDate fromDate;
     @Column(name = "to_date", length = 50, nullable = false)
     private LocalDate toDate;
+
+    @Enumerated(EnumType.STRING)
     @Column(name = "room_type", length = 50, nullable = false)
-    private String roomType;
+    private RoomType roomType;
 
     @Column(name = "price_double", length = 50)
     private Double priceDouble;
@@ -52,11 +54,11 @@ public class Availability extends BaseEntity {
         this.toDate = toDate;
     }
 
-    public String getRoomType() {
+    public RoomType getRoomType() {
         return roomType;
     }
 
-    public void setRoomType(String roomType) {
+    public void setRoomType(RoomType roomType) {
         this.roomType = roomType;
     }
 
@@ -89,18 +91,32 @@ public class Availability extends BaseEntity {
         if (this == o) return true;
         if (!(o instanceof Availability)) return false;
         Availability that = (Availability) o;
-        return getId()==(that.getId()) &&
-                getRoomName().equals(that.getRoomName()) &&
+        return super.getId()==(that.getId()) &&
                 getRoomName().equals(that.getRoomName()) &&
                 getFromDate().equals(that.getFromDate()) &&
                 getToDate().equals(that.getToDate()) &&
-                getRoomType().equals(that.getRoomType()) &&
+                getRoomType() == that.getRoomType() &&
                 getPriceDouble().equals(that.getPriceDouble()) &&
-                getPriceSingle().equals(that.getPriceSingle());
+                getPriceSingle().equals(that.getPriceSingle()) &&
+                getProperty().equals(that.getProperty());
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(getId(), getRoomName(), getRoomName(), getFromDate(), getToDate(), getRoomType(), getPriceDouble(), getPriceSingle());
+        return Objects.hash(getRoomName(), getFromDate(), getToDate(), getRoomType(), getPriceDouble(), getPriceSingle(), getProperty(), getId());
+    }
+
+    @Override
+    public String toString() {
+        return "Availability{" +
+                "id=" + getId() +
+                ", roomName='" + roomName + '\'' +
+                ", fromDate=" + fromDate +
+                ", toDate=" + toDate +
+                ", roomType=" + roomType +
+                ", priceDouble=" + priceDouble +
+                ", priceSingle=" + priceSingle +
+                ", property=" + property +
+                '}';
     }
 }

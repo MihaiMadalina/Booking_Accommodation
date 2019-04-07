@@ -27,8 +27,9 @@ public class Booking extends BaseEntity {
     @Column(name = "no_of_persons", nullable = false)
     private int personsNo;
 
+    @Enumerated(EnumType.STRING)
     @Column(name = "room_type", nullable = false)
-    private String roomType;
+    private RoomType roomType;
 
     @Column(name = "no_of_rooms", nullable = false)
     private int roomsNo;
@@ -76,11 +77,11 @@ public class Booking extends BaseEntity {
         this.personsNo = personsNo;
     }
 
-    public String getRoomType() {
+    public RoomType getRoomType() {
         return roomType;
     }
 
-    public void setRoomType(String roomType) {
+    public void setRoomType(RoomType roomType) {
         this.roomType = roomType;
     }
 
@@ -112,7 +113,7 @@ public class Booking extends BaseEntity {
                 getProperty().equals(booking.getProperty()) &&
                 getCheckIn().equals(booking.getCheckIn()) &&
                 getCheckOut().equals(booking.getCheckOut()) &&
-                getRoomType().equals(booking.getRoomType()) &&
+                getRoomType() == booking.getRoomType() &&
                 getBookingDate().equals(booking.getBookingDate());
     }
 
@@ -130,7 +131,7 @@ public class Booking extends BaseEntity {
                 ", checkIn=" + checkIn +
                 ", checkOut=" + checkOut +
                 ", personsNo=" + personsNo +
-                ", roomType='" + roomType + '\'' +
+                ", roomType=" + roomType +
                 ", roomsNo=" + roomsNo +
                 ", bookingDate=" + bookingDate +
                 '}';
