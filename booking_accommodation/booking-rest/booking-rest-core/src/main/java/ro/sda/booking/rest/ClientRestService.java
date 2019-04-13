@@ -1,6 +1,5 @@
 package ro.sda.booking.rest;
 
-import jdk.nashorn.internal.objects.annotations.Getter;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -33,10 +32,10 @@ public class ClientRestService {
     return clientService.getClientById(id);
     }
 
-    @Path("/find/{name}")
+    @Path("/find")
     @GET
     @Produces(MediaType.APPLICATION_JSON)
-    public Client getClient(@PathParam("name") String name){
+    public Client getClient(@QueryParam("name") String name){
         return clientService.getClientByName(name);
     }
 
@@ -48,5 +47,23 @@ public class ClientRestService {
     public void deleteClient(@QueryParam("clientId") long id){
         Client c = clientService.getClientById(id);
         clientService.delete(c);
+    }
+
+    @Path("/create")
+    @POST
+    @Produces(MediaType.APPLICATION_JSON)
+    @Consumes(MediaType.APPLICATION_JSON)
+    @Transactional
+    public Client create(Client client){
+        return clientService.create(client);
+    }
+
+    @Path("/update")
+    @PUT
+    @Produces(MediaType.APPLICATION_JSON)
+    @Consumes(MediaType.APPLICATION_JSON)
+    @Transactional
+    public Client update(Client client){
+        return clientService.update(client);
     }
 }
