@@ -20,6 +20,7 @@
             <artifactId>booking-commons</artifactId>
             <version>${project.parent.version}</version>
         </dependency>
+
         <!-- INTERNAL Dependencies END -->
 
         <!-- HIBERNATE Dependencies START -->
