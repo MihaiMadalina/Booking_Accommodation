@@ -5,8 +5,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import ro.sda.booking.core.entity.Availability;
 import ro.sda.booking.core.repository.AvailabilityRepository;
-
-import java.time.LocalDate;
+import java.util.Date;
 import java.util.List;
 
 @Service("availabilityService")
@@ -46,7 +45,7 @@ public class AvailabilityServiceImpl implements AvailabilityService {
     }
 
     @Override
-    public List<Availability> findAvailabilityByFromDateGreaterThanEqualAndToDateLessThanEqual(LocalDate fromDate, LocalDate toDate) {
+    public List<Availability> findAvailabilityByFromDateGreaterThanEqualAndToDateLessThanEqual(Date fromDate, Date toDate) {
         return availabilityRepository.findAvailabilityByFromDateGreaterThanEqualAndToDateLessThanEqual(fromDate, toDate);
     }
 
