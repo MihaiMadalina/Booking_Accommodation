@@ -9,9 +9,11 @@ import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 import org.springframework.transaction.annotation.Transactional;
 import ro.sda.booking.core.entity.Client;
+import ro.sda.booking.core.entity.Host;
 import ro.sda.booking.core.entity.Property;
 import ro.sda.booking.core.entity.Rating;
 import ro.sda.booking.core.service.ClientService;
+import ro.sda.booking.core.service.HostService;
 import ro.sda.booking.core.service.PropertyService;
 import ro.sda.booking.core.service.RatingService;
 
@@ -31,31 +33,42 @@ public class RatingServiceImplementationTest {
     @Autowired
     private PropertyService propertyService;
 
+    @Autowired
+    private HostService hostService;
+
     @Test
     @Rollback(false)
     @Transactional
     public void createRatingTest(){
-        Rating rating = new Rating();
-        Property property = new Property();
-        Client client = new Client();
-        rating.setPropertyId(propertyService.getProperty(1L));
-        rating.setClientId(clientService.getClientById(1L));
-        rating.setComment("Very nice and clean. Friendly staff.");
-        rating.setRating(4);
-        ratingService.create(rating);
-        Assert.assertNotNull(rating);
-    }
 
-    @Test
-    @Transactional
-    @Rollback(false)
-    public void getRatingByPropertyIdAndClientIdTest() {
-        Rating rating = new Rating();
-        Client clientId = clientService.getClientById(1L);
-        Property propertyId = propertyService.getProperty(1L);
-        Rating expectedRating = ratingService.getRatingByPropertyIdAndClientId(propertyId, clientId);
-        Rating actualRating = ratingService.getRating(1L);
-        Assert.assertEquals(expectedRating, actualRating);
+        Client client = new Client();
+        client.setName("Ion Popa");
+        client.setEmail("ion.popa85@yahoo.com");
+        client.setContact("047666999");
+        clientService.create(client);
+
+        Host host = new Host();
+        host.setName("Cristian");
+        host.setEmail("cuciurhanc@gmail.com");
+        hostService.create(host);
+
+        Property property = new Property();
+        property.setName("Bellaria");
+        property.setTelephone("07458866");
+        property.setEmail("contact.bellaria@outlook.com");
+        property.setAddress("Timisoara");
+        property.setHost(host);
+        propertyService.create(property);
+
+        Rating expectedRating = new Rating();
+        expectedRating.setRating(5);
+        expectedRating.setComment("Perfect accommodation. Very friendly staff, good food.");
+        expectedRating.setClientId(client);
+        expectedRating.setPropertyId(property);
+        ratingService.create(expectedRating);
+
+        List<Rating> ratings = ratingService.getAll();
+        Assert.assertEquals(expectedRating, ratings.get(0));
     }
 
     @Test
@@ -79,13 +92,33 @@ public class RatingServiceImplementationTest {
     @Transactional
     @Rollback(false)
     public void updateRatingTest() {
-        Rating rating = ratingService.getRating(2L);
-        rating.setPropertyId(propertyService.getProperty(3L));
-        rating.setClientId(clientService.getClientById(1L));
+        Rating rating = ratingService.getRating(1L);
+
+        Client client = new Client();
+        client.setName("Cristina Enache");
+        client.setEmail("cristina.enache@gmail.com");
+        client.setContact("0487755");
+        clientService.create(client);
+
+        Host host = new Host();
+        host.setName("George");
+        host.setEmail("mocanugeorge@gmail.com");
+        hostService.create(host);
+
+        Property property = new Property();
+        property.setName("International");
+        property.setTelephone("0477856");
+        property.setEmail("contact.international@yahoo.com");
+        property.setAddress("Oradea");
+        property.setHost(host);
+        propertyService.create(property);
+
         rating.setComment("Very disappointing experience. I do not recommend this place.");
         rating.setRating(1);
+        rating.setClientId(client);
+        rating.setPropertyId(property);
         Rating expectedRating = ratingService.update(rating);
-        Rating actualRating = ratingService.getRating(2L);
+        Rating actualRating = ratingService.getRating(1L);
         Assert.assertEquals(expectedRating, actualRating);
     }
 
@@ -95,7 +128,7 @@ public class RatingServiceImplementationTest {
     public void deleteRatingTest() {
         List<Rating> ratings = ratingService.getAll();
         int size = ratings.size();
-        Rating rating = ratingService.getRating(3L);
+        Rating rating = ratingService.getRating(1L);
         ratingService.delete(rating);
         ratings = ratingService.getAll();
         Assert.assertEquals(size - 1, ratings.size());

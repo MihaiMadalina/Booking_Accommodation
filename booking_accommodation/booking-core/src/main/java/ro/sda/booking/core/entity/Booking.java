@@ -1,14 +1,19 @@
 package ro.sda.booking.core.entity;
-
 import ro.sda.booking.core.base.BaseEntity;
+import org.apache.commons.lang3.RandomStringUtils;
 
 import javax.persistence.*;
-import java.time.LocalDate;
+import java.text.SimpleDateFormat;
+import java.util.Calendar;
+import java.util.Date;
 import java.util.Objects;
 
 @Entity
 @Table(name = "bookings", schema = "booking")
 public class Booking extends BaseEntity {
+
+    @Column(name = "booking_no", nullable = false, unique = true)
+    private String bookingNo;
 
     @ManyToOne
     @JoinColumn(name = "client", nullable = false)
@@ -18,11 +23,13 @@ public class Booking extends BaseEntity {
     @JoinColumn(name = "property", nullable = false)
     private Property property;
 
+    @Temporal(TemporalType.DATE)
     @Column(name = "check_in", nullable = false)
-    private LocalDate checkIn;
+    private Date checkIn;
 
     @Column(name = "check_out", nullable = false)
-    private LocalDate checkOut;
+    @Temporal(TemporalType.DATE)
+    private Date checkOut;
 
     @Column(name = "no_of_persons", nullable = false)
     private int personsNo;
@@ -35,7 +42,20 @@ public class Booking extends BaseEntity {
     private int roomsNo;
 
     @Column(name = "booking_date", nullable = false)
-    private LocalDate bookingDate;
+    private String bookingDate;
+
+    public String getBookingNo() {
+        return bookingNo;
+    }
+
+    public void setBookingNo(String bookingNo) {
+        this.bookingNo = bookingNo;
+    }
+
+    @PrePersist
+    public void onCreate() {
+        setBookingNo(RandomStringUtils.randomAlphanumeric(8));
+        }
 
     public Client getClient() {
         return client;
@@ -53,21 +73,6 @@ public class Booking extends BaseEntity {
         this.property = property;
     }
 
-    public LocalDate getCheckIn() {
-        return checkIn;
-    }
-
-    public void setCheckIn(LocalDate checkIn) {
-        this.checkIn = checkIn;
-    }
-
-    public LocalDate getCheckOut() {
-        return checkOut;
-    }
-
-    public void setCheckOut(LocalDate checkOut) {
-        this.checkOut = checkOut;
-    }
 
     public int getPersonsNo() {
         return personsNo;
@@ -93,12 +98,30 @@ public class Booking extends BaseEntity {
         this.roomsNo = roomsNo;
     }
 
-    public LocalDate getBookingDate() {
+    public String getBookingDate() {
         return bookingDate;
     }
 
-    public void setBookingDate(LocalDate bookingDate) {
-        this.bookingDate = bookingDate;
+    public void setBookingDate() {
+
+        bookingDate = new SimpleDateFormat("yyyy-MM-dd").format(Calendar.getInstance().getTime());
+    }
+
+    public Date getCheckIn() {
+        return checkIn;
+    }
+
+
+    public Date getCheckOut() {
+        return checkOut;
+    }
+
+    public void setCheckIn(Date checkIn) {
+        this.checkIn = checkIn;
+    }
+
+    public void setCheckOut(Date checkOut) {
+        this.checkOut = checkOut;
     }
 
     @Override
@@ -107,6 +130,7 @@ public class Booking extends BaseEntity {
         if (!(o instanceof Booking)) return false;
         Booking booking = (Booking) o;
         return super.getId()==(booking.getId()) &&
+                getBookingNo() == booking.getBookingNo() &&
                 getPersonsNo() == booking.getPersonsNo() &&
                 getRoomsNo() == booking.getRoomsNo() &&
                 getClient().equals(booking.getClient()) &&
@@ -119,13 +143,14 @@ public class Booking extends BaseEntity {
 
     @Override
     public int hashCode() {
-        return Objects.hash(getClient(), getProperty(), getCheckIn(), getCheckOut(), getPersonsNo(), getRoomType(), getRoomsNo(), getBookingDate(), getId());
+        return Objects.hash(getBookingNo(), getClient(), getProperty(), getCheckIn(), getCheckOut(), getPersonsNo(), getRoomType(), getRoomsNo(), getBookingDate(), getId());
     }
 
     @Override
     public String toString() {
         return "Booking{" +
                 "id=" + getId() +
+                ", bookingNo=" + bookingNo +
                 ", client=" + client +
                 ", property=" + property +
                 ", checkIn=" + checkIn +

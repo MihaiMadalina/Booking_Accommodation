@@ -8,16 +8,15 @@ import org.springframework.test.annotation.Rollback;
 import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 import org.springframework.transaction.annotation.Transactional;
-import ro.sda.booking.core.entity.Booking;
-import ro.sda.booking.core.entity.Client;
-import ro.sda.booking.core.entity.Property;
-import ro.sda.booking.core.entity.RoomType;
+import ro.sda.booking.core.entity.*;
 import ro.sda.booking.core.service.BookingService;
 import ro.sda.booking.core.service.ClientService;
+import ro.sda.booking.core.service.HostService;
 import ro.sda.booking.core.service.PropertyService;
 
-import java.time.LocalDate;
 import java.util.Calendar;
+import java.util.Date;
+import java.util.GregorianCalendar;
 import java.util.List;
 
 @RunWith(SpringJUnit4ClassRunner.class)
@@ -34,26 +33,49 @@ public class BookingServiceImplementationTest {
     @Autowired
     private ClientService clientService;
 
+    @Autowired
+    private HostService hostService;
+
     @Test
     @Rollback(false)
     @Transactional
     public void createBookingTest(){
-        Booking booking = new Booking();
-        Property property = new Property();
         Client client = new Client();
-        booking.setProperty(propertyService.getProperty(1L));
-        booking.setClient(clientService.getClientById(1L));
-        LocalDate checkInDate = LocalDate.of(2019, 4, 7);
-        booking.setCheckIn(checkInDate);
-        LocalDate checkOutDate = LocalDate.of(2019, 4, 10);
-        booking.setCheckOut(checkOutDate);
-        booking.setPersonsNo(2);
-        booking.setRoomType(RoomType.DOUBLE);
-        booking.setRoomsNo(1);
-        LocalDate bookingDate = LocalDate.of(2019, 4, 6);
-        booking.setBookingDate(bookingDate);
-        bookingService.create(booking);
-        Assert.assertNotNull(booking);
+        Property property = new Property();
+        Host host = new Host();
+
+        client.setName("Alina Cristiana");
+        client.setEmail("alina_cristiana@gmail.com");
+        client.setContact("01255999");
+        clientService.create(client);
+
+        host.setName("Boz");
+        host.setEmail("andreea.boz@gmail.com");
+        hostService.create(host);
+
+        property.setName("Bucium");
+        property.setTelephone("25555888");
+        property.setEmail("contact@bucium.com");
+        property.setAddress("Iasi");
+        property.setHost(host);
+        propertyService.create(property);
+
+        Booking expectedBooking = new Booking();
+        Date checkInDate = new GregorianCalendar(2019, Calendar.APRIL, 1).getTime();
+        expectedBooking.setCheckIn(checkInDate);
+        Date checkOutDate = new GregorianCalendar(2019, Calendar.MAY, 7).getTime();
+        expectedBooking.setCheckOut(checkOutDate);
+
+        expectedBooking.setPersonsNo(1);
+        expectedBooking.setRoomType(RoomType.SINGLE);
+        expectedBooking.setRoomsNo(1);
+        expectedBooking.setBookingDate();
+        expectedBooking.setClient(client);
+        expectedBooking.setProperty(property);
+        expectedBooking.onCreate();
+        bookingService.create(expectedBooking);
+        List<Booking> bookings = bookingService.getAll();
+        Assert.assertEquals(expectedBooking, bookings.get(0));
     }
 
     @Test
@@ -70,27 +92,50 @@ public class BookingServiceImplementationTest {
     @Rollback(false)
     public void getAllBookingsTest() {
         List<Booking> bookings = bookingService.getAll();
-        Assert.assertEquals(2, bookings.size());
+        Assert.assertEquals(1, bookings.size());
     }
 
     @Test
     @Transactional
     @Rollback(false)
     public void updateBookingTest() {
-        Booking booking = bookingService.getBooking(2L);
-        booking.setProperty(propertyService.getProperty(1L));
-        booking.setClient(clientService.getClientById(1L));
-        LocalDate checkInDate = LocalDate.of(2019, 8, 21);
+        Booking booking = bookingService.getBooking(1L);
+
+        Client client = new Client();
+        Property property = new Property();
+        Host host = new Host();
+
+        client.setName("Mihai Madalina");
+        client.setEmail("madalina.mihai@gmail.com");
+        client.setContact("015577889");
+        clientService.create(client);
+
+        host.setName("Boz");
+        host.setEmail("sorina.boz@gmail.com");
+        hostService.create(host);
+
+        property.setName("Traian");
+        property.setTelephone("45599965");
+        property.setEmail("contact@traian.com");
+        property.setAddress("Iasi");
+        property.setHost(host);
+        propertyService.create(property);
+
+        Date checkInDate = new GregorianCalendar(2020, Calendar.JANUARY, 28).getTime();
         booking.setCheckIn(checkInDate);
-        LocalDate checkOutDate = LocalDate.of(2019, 8, 28);
+        Date checkOutDate = new GregorianCalendar(2020, Calendar.FEBRUARY, 7).getTime();
         booking.setCheckOut(checkOutDate);
-        booking.setPersonsNo(1);
-        booking.setRoomType(RoomType.SINGLE);
+
+        booking.setPersonsNo(2);
+        booking.setRoomType(RoomType.DOUBLE);
         booking.setRoomsNo(1);
-        LocalDate bookingDate = LocalDate.of(2019, 4, 6);
-        booking.setBookingDate(bookingDate);
+        booking.setBookingDate();
+        booking.setClient(client);
+        booking.setProperty(property);
+        booking.onCreate();
+
         Booking expectedBooking = bookingService.update(booking);
-        Booking actualBooking = bookingService.getBooking(2L);
+        Booking actualBooking = bookingService.getBooking(1L);
         Assert.assertEquals(expectedBooking, actualBooking);
     }
 
@@ -100,7 +145,7 @@ public class BookingServiceImplementationTest {
     public void deleteBookingTest() {
         List<Booking> bookings = bookingService.getAll();
         int size = bookings.size();
-        Booking booking = bookingService.getBooking(2L);
+        Booking booking = bookingService.getBooking(1L);
         bookingService.delete(booking);
         bookings = bookingService.getAll();
         Assert.assertEquals(size - 1, bookings.size());

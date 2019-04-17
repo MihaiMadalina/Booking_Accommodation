@@ -49,4 +49,5 @@
         <property name="dataSource" ref="dataSource" />
         <property name="packagesToScan" value="ro.sda" />
     </bean>
+
 </beans>

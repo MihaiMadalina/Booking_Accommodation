@@ -3,7 +3,9 @@ package ro.sda.booking.core.entity;
 import ro.sda.booking.core.base.BaseEntity;
 
 import javax.persistence.*;
+import java.text.SimpleDateFormat;
 import java.time.LocalDate;
+import java.util.Calendar;
 import java.util.Objects;
 
 @Entity
@@ -14,7 +16,7 @@ public class Payment extends BaseEntity {
     private Double amount;
 
     @Column(name = "payment_date", nullable = false)
-    private LocalDate paymentDate;
+    private String paymentDate;
 
     @OneToOne
     @JoinColumn(name = "booking", nullable = false)
@@ -28,12 +30,13 @@ public class Payment extends BaseEntity {
         this.amount = amount;
     }
 
-    public LocalDate getPaymentDate() {
+    public String getPaymentDate() {
         return paymentDate;
     }
 
-    public void setPaymentDate(LocalDate paymentDate) {
-        this.paymentDate = paymentDate;
+    public void setPaymentDate() {
+
+        paymentDate = new SimpleDateFormat("yyyy-MM-dd").format(Calendar.getInstance().getTime());
     }
 
     public Booking getBooking() {

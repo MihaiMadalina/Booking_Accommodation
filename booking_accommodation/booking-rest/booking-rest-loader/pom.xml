@@ -16,6 +16,14 @@
     <dependencies>
 
         <!-- INTERNAL Dependencies START -->
+
+        <dependency>
+            <groupId>org.jvnet.mock-javamail</groupId>
+            <artifactId>mock-javamail</artifactId>
+            <version>1.9</version>
+            <scope>test</scope>
+        </dependency>
+
         <dependency>
             <groupId>ro.sda</groupId>
             <artifactId>booking-rest-core</artifactId>

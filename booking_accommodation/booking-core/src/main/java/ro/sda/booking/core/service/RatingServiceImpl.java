@@ -28,11 +28,6 @@ public class RatingServiceImpl implements RatingService {
     }
 
     @Override
-    public Rating getRatingByPropertyIdAndClientId(Property propertyId, Client clientId) {
-        return ratingRepository.findRatingByPropertyIdAndClientId(propertyId, clientId);
-    }
-
-    @Override
     public List<Rating> getAll() {
         return ratingRepository.findAll();
     }

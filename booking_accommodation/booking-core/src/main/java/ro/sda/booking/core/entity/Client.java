@@ -9,13 +9,13 @@ import java.util.Objects;
 @Table(name = "clients", schema = "booking")
 public class Client extends BaseEntity {
 
-    @Column(name = "name", length = 50)
+    @Column(name = "name", length = 50, nullable = false)
     private String name;
 
-    @Column(name = "email", length = 50)
+    @Column(name = "email", length = 50, nullable = false)
     private String email;
 
-    @Column(name = "contact_no", length = 50)
+    @Column(name = "contact_no", length = 50, nullable = false)
     private String contact;
 
     public String getName() {

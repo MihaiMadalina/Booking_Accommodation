@@ -12,8 +12,6 @@ public interface RatingService {
 
     Rating getRating(Long id);
 
-    Rating getRatingByPropertyIdAndClientId(Property propertyId, Client clientId);
-
     List<Rating> getAll();
 
     Rating update(Rating rating);
