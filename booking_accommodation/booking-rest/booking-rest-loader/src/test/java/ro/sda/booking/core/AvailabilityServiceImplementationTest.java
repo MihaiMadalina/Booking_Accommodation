@@ -17,6 +17,9 @@ import ro.sda.booking.core.service.HostService;
 import ro.sda.booking.core.service.PropertyService;
 
 import java.time.LocalDate;
+import java.util.Calendar;
+import java.util.Date;
+import java.util.GregorianCalendar;
 import java.util.List;
 
 @RunWith(SpringJUnit4ClassRunner.class)
@@ -53,13 +56,13 @@ public class AvailabilityServiceImplementationTest {
         expectedAvailability.setRoomName("Room1");
         expectedAvailability.setRoomType(RoomType.SINGLE);
         expectedAvailability.setPriceSingle(100.00);
-        LocalDate fromDate = LocalDate.of(2019, 4, 1);
-        LocalDate toDate = LocalDate.of(2019, 4, 30);
+        Date fromDate = new GregorianCalendar(2019, Calendar.APRIL, 1).getTime();
+        Date toDate = new GregorianCalendar(2019, Calendar.APRIL, 30).getTime();
         expectedAvailability.setFromDate(fromDate);
         expectedAvailability.setToDate(toDate);
         availabilityService.create(expectedAvailability);
         List<Availability> availabilities = availabilityService.getAll();
-        Assert.assertEquals(expectedAvailability, availabilities.get(2));
+        Assert.assertEquals(expectedAvailability, availabilities.get(0));
     }
 
     @Test
@@ -75,8 +78,8 @@ public class AvailabilityServiceImplementationTest {
     @Transactional
     @Rollback(false)
     public void getAvailabilityByPropertyIdAndRoomNameTest(){
-        Availability expectedAvailability = availabilityService.findAvailabilityByPropertyIdAndRoomName(4L, "Room1");
-        Availability actualAvailability = availabilityService.getAvailability(3L);
+        Availability expectedAvailability = availabilityService.findAvailabilityByPropertyIdAndRoomName(8L, "Room1");
+        Availability actualAvailability = availabilityService.getAvailability(25L);
         Assert.assertEquals(expectedAvailability, actualAvailability);
     }
     @Test
@@ -96,8 +99,8 @@ public class AvailabilityServiceImplementationTest {
         expectedAvailability.setPriceSingle(120.00);
         expectedAvailability.setPriceDouble(180.00);
         expectedAvailability.setRoomName("Room A");
-        LocalDate fromDate = LocalDate.of(2019, 04, 2);
-        LocalDate toDate = LocalDate.of(2019, 04, 20);
+        Date fromDate = new GregorianCalendar(2019, Calendar.APRIL, 2).getTime();
+        Date toDate = new GregorianCalendar(2019, Calendar.APRIL, 20).getTime();
         expectedAvailability.setFromDate(fromDate);
         expectedAvailability.setToDate(toDate);
         expectedAvailability = availabilityService.update(expectedAvailability);
@@ -125,8 +128,8 @@ public class AvailabilityServiceImplementationTest {
         Property property2 = propertyService.getProperty(4L);
         Availability expectedAvailability1 = new Availability();
         expectedAvailability1.setProperty(property1);
-        LocalDate fromDate1 = LocalDate.of(2019, 4, 7);
-        LocalDate toDate1 = LocalDate.of(2019, 4, 30);
+        Date fromDate1 = new GregorianCalendar(2019, Calendar.APRIL, 7).getTime();
+        Date toDate1 = new GregorianCalendar(2019, Calendar.APRIL, 30).getTime();
         expectedAvailability1.setFromDate(fromDate1);
         expectedAvailability1.setToDate(toDate1);
         expectedAvailability1.setRoomName("Room 1");
@@ -139,8 +142,8 @@ public class AvailabilityServiceImplementationTest {
         expectedAvailability2.setRoomType(RoomType.DOUBLE);
         expectedAvailability2.setPriceSingle(120.00);
         expectedAvailability2.setPriceDouble(160.00);
-        LocalDate fromDate2 = LocalDate.of(2019, 4, 6);
-        LocalDate toDate2 = LocalDate.of(2019, 4, 30);
+        Date fromDate2 = new GregorianCalendar(2019, Calendar.APRIL, 6).getTime();
+        Date toDate2 = new GregorianCalendar(2019, Calendar.APRIL, 30).getTime();
         expectedAvailability2.setFromDate(fromDate2);
         expectedAvailability2.setToDate(toDate2);
         expectedAvailability2 = availabilityService.create(expectedAvailability2);
@@ -150,8 +153,8 @@ public class AvailabilityServiceImplementationTest {
         expectedAvailability3.setRoomType(RoomType.DOUBLE);
         expectedAvailability3.setPriceSingle(100.00);
         expectedAvailability3.setPriceDouble(150.00);
-        LocalDate fromDate3 = LocalDate.of(2019, 4, 9);
-        LocalDate toDate3 = LocalDate.of(2019, 4, 29);
+        Date fromDate3 = new GregorianCalendar(2019, Calendar.APRIL, 9).getTime();
+        Date toDate3 = new GregorianCalendar(2019, Calendar.APRIL, 29).getTime();
         expectedAvailability3.setFromDate(fromDate3);
         expectedAvailability3.setToDate(toDate3);
         expectedAvailability3 = availabilityService.create(expectedAvailability3);
@@ -161,12 +164,12 @@ public class AvailabilityServiceImplementationTest {
         expectedAvailability4.setRoomType(RoomType.DOUBLE);
         expectedAvailability4.setPriceSingle(100.00);
         expectedAvailability4.setPriceDouble(150.00);
-        LocalDate fromDate4 = LocalDate.of(2019, 4, 9);
-        LocalDate toDate4 = LocalDate.of(2019, 5, 1);
+        Date fromDate4 = new GregorianCalendar(2019, Calendar.APRIL, 9).getTime();
+        Date toDate4 = new GregorianCalendar(2019, Calendar.MAY, 1).getTime();
         expectedAvailability4.setFromDate(fromDate4);
         expectedAvailability4.setToDate(toDate4);
         expectedAvailability4 = availabilityService.create(expectedAvailability4);
-        List<Availability>availabilities = availabilityService.findAvailabilityByFromDateGreaterThanEqualAndToDateLessThanEqual(LocalDate.of(2019, 4, 7), LocalDate.of(2019, 4, 30));
+        List<Availability>availabilities = availabilityService.findAvailabilityByFromDateGreaterThanEqualAndToDateLessThanEqual(fromDate1, toDate1);
         Assert.assertEquals(2, availabilities.size());
         Assert.assertEquals(expectedAvailability1, availabilities.get(0));
         Assert.assertEquals(expectedAvailability3, availabilities.get(1));

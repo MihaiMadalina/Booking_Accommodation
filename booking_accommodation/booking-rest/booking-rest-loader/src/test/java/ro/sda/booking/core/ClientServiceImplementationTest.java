@@ -76,7 +76,7 @@ public class ClientServiceImplementationTest {
     public void deleteClientTest() {
         List<Client> clients = clientService.findAll();
         int size = clients.size();
-        Client client = clientService.getClientById(2L);
+        Client client = clientService.getClientById(1L);
         clientService.delete(client);
         clients = clientService.findAll();
         Assert.assertEquals(size - 1, clients.size());

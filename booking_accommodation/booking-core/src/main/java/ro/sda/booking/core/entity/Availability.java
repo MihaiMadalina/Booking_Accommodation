@@ -1,9 +1,8 @@
 package ro.sda.booking.core.entity;
-
 import ro.sda.booking.core.base.BaseEntity;
-
 import javax.persistence.*;
 import java.time.LocalDate;
+import java.util.Date;
 import java.util.Objects;
 
 @Entity
@@ -12,10 +11,14 @@ public class Availability extends BaseEntity {
 
     @Column(name = "room_name", length = 50, nullable = false)
     private String roomName;
+
     @Column(name = "from_date", length = 50, nullable = false)
-    private LocalDate fromDate;
+    @Temporal(TemporalType.DATE)
+    private Date fromDate;
+
     @Column(name = "to_date", length = 50, nullable = false)
-    private LocalDate toDate;
+    @Temporal(TemporalType.DATE)
+    private Date toDate;
 
     @Enumerated(EnumType.STRING)
     @Column(name = "room_type", length = 50, nullable = false)
@@ -38,19 +41,19 @@ public class Availability extends BaseEntity {
         this.roomName = roomName;
     }
 
-    public LocalDate getFromDate() {
+    public Date getFromDate() {
         return fromDate;
     }
 
-    public void setFromDate(LocalDate fromDate) {
+    public void setFromDate(Date fromDate) {
         this.fromDate = fromDate;
     }
 
-    public LocalDate getToDate() {
+    public Date getToDate() {
         return toDate;
     }
 
-    public void setToDate(LocalDate toDate) {
+    public void setToDate(Date toDate) {
         this.toDate = toDate;
     }
 

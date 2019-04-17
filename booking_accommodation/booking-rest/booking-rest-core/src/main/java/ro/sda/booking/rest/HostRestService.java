@@ -3,40 +3,39 @@ package ro.sda.booking.rest;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
-import ro.sda.booking.core.entity.Client;
-import ro.sda.booking.core.service.ClientService;
+import ro.sda.booking.core.entity.Host;
+import ro.sda.booking.core.service.HostService;
 
 import javax.ws.rs.*;
 import javax.ws.rs.core.MediaType;
 import java.util.List;
 
-
 @Service
-@Path("/client")
-public class ClientRestService {
-
+@Path("/host")
+public class HostRestService {
     @Autowired
-    private ClientService clientService;
+    private HostService hostService;
 
     @Path("/find-all")
     @GET
     @Produces(MediaType.APPLICATION_JSON)
-    public List<Client> findAll(){
-        return clientService.findAll();
+    public List<Host> findAll() {
+        return hostService.getAll();
     }
 
     @Path("/find/{id}")
     @GET
     @Produces(MediaType.APPLICATION_JSON)
-    public Client getClient(@PathParam("id") long id){
-        return clientService.getClientById(id);
+    public Host getHost(@PathParam("id") long id) {
+        Host host = hostService.getHost(id);
+        return host;
     }
 
     @Path("/find")
     @GET
     @Produces(MediaType.APPLICATION_JSON)
-    public Client getClient(@QueryParam("name") String name){
-        return clientService.getClientByName(name);
+    public Host getHost(@QueryParam("email") String email) {
+        return hostService.getHostByEmail(email);
     }
 
 
@@ -44,9 +43,9 @@ public class ClientRestService {
     @DELETE
     @Produces(MediaType.APPLICATION_JSON)
     @Transactional
-    public void deleteClient(@QueryParam("clientId") long id){
-        Client c = clientService.getClientById(id);
-        clientService.delete(c);
+    public void deleteClient(@QueryParam("hostId") long id) {
+        Host h = hostService.getHost(id);
+        hostService.delete(h);
     }
 
     @Path("/create")
@@ -54,8 +53,8 @@ public class ClientRestService {
     @Produces(MediaType.APPLICATION_JSON)
     @Consumes(MediaType.APPLICATION_JSON)
     @Transactional
-    public Client create(Client client){
-        return clientService.create(client);
+    public Host create(Host host) {
+        return hostService.create(host);
     }
 
     @Path("/update")
@@ -63,7 +62,8 @@ public class ClientRestService {
     @Produces(MediaType.APPLICATION_JSON)
     @Consumes(MediaType.APPLICATION_JSON)
     @Transactional
-    public Client update(Client client){
-        return clientService.update(client);
+    public Host updateClient(Host host){
+        return hostService.update(host);
     }
+
 }
