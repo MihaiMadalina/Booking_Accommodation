@@ -16,7 +16,6 @@ import ro.sda.booking.core.service.AvailabilityService;
 import ro.sda.booking.core.service.HostService;
 import ro.sda.booking.core.service.PropertyService;
 
-import java.time.LocalDate;
 import java.util.Calendar;
 import java.util.Date;
 import java.util.GregorianCalendar;
@@ -174,6 +173,17 @@ public class AvailabilityServiceImplementationTest {
         Assert.assertEquals(expectedAvailability1, availabilities.get(0));
         Assert.assertEquals(expectedAvailability3, availabilities.get(1));
 
+    }
+
+    @Test
+    @Rollback(false)
+    @Transactional
+    public void isAvailabilityByFromDateGreaterThanEqualAndToDateLessThanEqual(){
+        Date fromDate = new GregorianCalendar(2019, Calendar.MAY, 9).getTime();
+        Date toDate = new GregorianCalendar(2019, Calendar.JUNE, 1).getTime();
+        boolean isAvailable;
+        isAvailable = availabilityService.existsAvailabilityByFromDateGreaterThanEqualAndToDateLessThanEqual(fromDate, toDate);
+        Assert.assertEquals(true, isAvailable);
 
     }
 

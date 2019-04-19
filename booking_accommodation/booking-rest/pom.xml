@@ -34,9 +34,10 @@
 
             <dependency>
                 <groupId>ro.sda</groupId>
-                <artifactId>booking-core</artifactId>
+                <artifactId>booking-commons</artifactId>
                 <version>${project.parent.version}</version>
             </dependency>
+
             <!-- INTERNAL Dependencies END -->
 
             <!-- RESTEASY Dependencies START -->

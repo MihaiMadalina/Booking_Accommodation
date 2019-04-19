@@ -7,6 +7,8 @@
     <groupId>ro.sda</groupId>
     <artifactId>booking-master</artifactId>
     <version>1.0-SNAPSHOT</version>
+
+
     <modules>
         <module>booking-commons</module>
         <module>booking-core</module>
@@ -49,6 +51,7 @@
 
     <dependencyManagement>
         <dependencies>
+
             <!-- SPRING Dependencies START -->
             <dependency>
                 <groupId>org.springframework</groupId>

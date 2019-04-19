@@ -3,6 +3,8 @@ package ro.sda.booking.core.service;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
+import ro.sda.booking.commons.SendEmail;
+import ro.sda.booking.core.entity.Availability;
 import ro.sda.booking.core.entity.Booking;
 import ro.sda.booking.core.repository.BookingRepository;
 
@@ -14,6 +16,11 @@ public class BookingServiceImpl implements BookingService {
 
     @Autowired
     private BookingRepository bookingRepository;
+
+    @Autowired
+    private AvailabilityService availabilityService;
+
+    private SendEmail sendEmail = new SendEmail();
 
     @Override
     public Booking create(Booking booking) {
@@ -38,5 +45,36 @@ public class BookingServiceImpl implements BookingService {
     @Override
     public void delete(Booking booking) {
         bookingRepository.delete(booking);
+    }
+
+    @Override
+    public void sendBookingEmail(Booking booking, Availability availability) {
+
+        String message = "Dear " + booking.getClient().getName() + ","
+                + "\n"
+                + "\n" + "Thank you for choosing " + booking.getProperty().getName() + " Hotel" + ". Please find below your booking details: "
+                + "\n"
+                + "\n" + "Reservation number: " + booking.getBookingNo()
+                + "\n" + "Number of rooms: " + booking.getRoomsNo()
+                + "\n" + "Room type: " + booking.getRoomType()
+                + "\n" + "Number of adults/child: " + booking.getPersonsNo()
+                + "\n" + "Arrival date: " + booking.getCheckIn()
+                + "\n" + "Departure date: " + booking.getCheckOut()
+                + "\n" + "Booking date: " + booking.getBookingDate()
+                + "\n"
+                + "\n" + "We look forward to welcoming you to " + booking.getProperty().getName() + " Hotel."
+                + "\n"
+                + "\n" + "Thanks and Regards,"
+                + "\n" + "Booking Team";
+
+        String email = booking.getClient().getEmail();
+        String subject = "Booking confirmation ";
+        boolean isAvailable = availabilityService.existsAvailabilityByFromDateGreaterThanEqualAndToDateLessThanEqual(booking.getCheckIn(),booking.getCheckOut());
+        if(!isAvailable){
+            sendEmail.sendEmail(message,email,subject);
+        }else{
+            String nonAvailabilityMessage = "Apologies, currently we have no available rooms in the given period.";
+            sendEmail.sendEmail(nonAvailabilityMessage,email,subject);
+        }
     }
 }

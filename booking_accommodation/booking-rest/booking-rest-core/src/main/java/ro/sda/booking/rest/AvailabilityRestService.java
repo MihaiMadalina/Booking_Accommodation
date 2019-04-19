@@ -9,14 +9,13 @@ import javax.ws.rs.*;
 import javax.ws.rs.core.MediaType;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
-import java.time.LocalDate;
-import java.time.format.DateTimeFormatter;
 import java.util.Date;
 import java.util.List;
 
 @Service
 @Path("/availability")
 public class AvailabilityRestService {
+
     @Autowired
     private AvailabilityService availabilityService;
 

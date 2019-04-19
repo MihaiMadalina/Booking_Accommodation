@@ -9,10 +9,7 @@ import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 import org.springframework.transaction.annotation.Transactional;
 import ro.sda.booking.core.entity.*;
-import ro.sda.booking.core.service.BookingService;
-import ro.sda.booking.core.service.ClientService;
-import ro.sda.booking.core.service.HostService;
-import ro.sda.booking.core.service.PropertyService;
+import ro.sda.booking.core.service.*;
 
 import java.util.Calendar;
 import java.util.Date;
@@ -36,6 +33,9 @@ public class BookingServiceImplementationTest {
     @Autowired
     private HostService hostService;
 
+    @Autowired
+    private AvailabilityService availabilityService;
+
     @Test
     @Rollback(false)
     @Transactional
@@ -44,8 +44,8 @@ public class BookingServiceImplementationTest {
         Property property = new Property();
         Host host = new Host();
 
-        client.setName("Alina Cristiana");
-        client.setEmail("alina_cristiana@gmail.com");
+        client.setName("Sorina Boz");
+        client.setEmail("sorina.boz@gmail.com");
         client.setContact("01255999");
         clientService.create(client);
 
@@ -61,7 +61,7 @@ public class BookingServiceImplementationTest {
         propertyService.create(property);
 
         Booking expectedBooking = new Booking();
-        Date checkInDate = new GregorianCalendar(2019, Calendar.APRIL, 1).getTime();
+        Date checkInDate = new GregorianCalendar(2019, Calendar.MAY, 1).getTime();
         expectedBooking.setCheckIn(checkInDate);
         Date checkOutDate = new GregorianCalendar(2019, Calendar.MAY, 7).getTime();
         expectedBooking.setCheckOut(checkOutDate);
@@ -106,7 +106,7 @@ public class BookingServiceImplementationTest {
         Host host = new Host();
 
         client.setName("Mihai Madalina");
-        client.setEmail("madalina.mihai@gmail.com");
+        client.setEmail("madalina_mihai93@yahoo.com");
         client.setContact("015577889");
         clientService.create(client);
 
@@ -149,5 +149,15 @@ public class BookingServiceImplementationTest {
         bookingService.delete(booking);
         bookings = bookingService.getAll();
         Assert.assertEquals(size - 1, bookings.size());
+    }
+
+    @Test
+    @Rollback(false)
+    @Transactional
+    public void sendBookingEmailTest(){
+        Availability availability = availabilityService.getAvailability(1L);
+        Booking booking = bookingService.getBooking(1L);
+
+        bookingService.sendBookingEmail(booking,availability);
     }
 }

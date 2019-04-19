@@ -51,7 +51,7 @@ public class PropertyServiceImplementationTest {
     @Transactional
     @Rollback(false)
     public void getPropertyByIdTest(){
-        Property expectedProperty = propertyService.getProperty(4L);
+        Property expectedProperty = propertyService.getProperty(1L);
         Property actualProperty = propertyService.getPropertyByName("Bucium");
         Assert.assertEquals(expectedProperty, actualProperty);
     }
@@ -61,7 +61,7 @@ public class PropertyServiceImplementationTest {
     @Rollback(false)
     public void getPropertyByNameTest(){
         Property expectedProperty = propertyService.getPropertyByName("Bucium");
-        Property actualProperty = propertyService.getProperty(4L);
+        Property actualProperty = propertyService.getProperty(1L);
         Assert.assertEquals(expectedProperty, actualProperty);
     }
 
@@ -70,14 +70,14 @@ public class PropertyServiceImplementationTest {
     @Rollback(false)
     public void getAllPropertiesTest(){
         List<Property> properties = propertyService.getAll();
-        Assert.assertEquals(4, properties.size());
+        Assert.assertEquals(1, properties.size());
     }
 
     @Test
     @Transactional
     @Rollback(false)
     public void updatePropertiesTest(){
-        Property expectedProperty = propertyService.getProperty(3L);
+        Property expectedProperty = propertyService.getProperty(1L);
         expectedProperty.setName("Havana");
         expectedProperty.setEmail("contact@havana.com");
         expectedProperty.setTelephone("6565365");
@@ -92,7 +92,7 @@ public class PropertyServiceImplementationTest {
     public void deletePropertyTest(){
         List<Property> properties = propertyService.getAll();
         int size = properties.size();
-        Property property = propertyService.getProperty(5L);
+        Property property = propertyService.getProperty(1L);
         propertyService.delete(property);
         properties = propertyService.getAll();
         Assert.assertEquals(size-1, properties.size());
