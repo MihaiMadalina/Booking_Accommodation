@@ -7,6 +7,10 @@ import java.util.Date;
 import java.util.List;
 
 public interface AvailabilityRepository extends EntityRepository<Availability> {
-    Availability  findAvailabilityByPropertyIdAndRoomName(Long id, String roomName);
+
+    Availability findAvailabilityByPropertyIdAndRoomName(Long id, String roomName);
+
+    boolean existsAvailabilityByFromDateGreaterThanEqualAndToDateLessThanEqual(Date fromDate, Date toDate);
+
     List<Availability> findAvailabilityByFromDateGreaterThanEqualAndToDateLessThanEqual(Date fromDate, Date toDate);
 }

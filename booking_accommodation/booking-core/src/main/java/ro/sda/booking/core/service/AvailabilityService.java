@@ -19,6 +19,8 @@ public interface AvailabilityService {
 
     void delete(Availability availability);
 
+    boolean existsAvailabilityByFromDateGreaterThanEqualAndToDateLessThanEqual(Date fromDate, Date toDate);
+
     List<Availability> findAvailabilityByFromDateGreaterThanEqualAndToDateLessThanEqual (Date fromDate, Date toDate);
 
 }

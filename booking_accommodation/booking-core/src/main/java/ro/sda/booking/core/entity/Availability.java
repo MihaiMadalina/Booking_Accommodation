@@ -1,7 +1,6 @@
 package ro.sda.booking.core.entity;
 import ro.sda.booking.core.base.BaseEntity;
 import javax.persistence.*;
-import java.time.LocalDate;
 import java.util.Date;
 import java.util.Objects;
 

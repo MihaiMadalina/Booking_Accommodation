@@ -41,8 +41,8 @@ public class BookingServiceImplementationTest {
         Property property = new Property();
         Host host = new Host();
 
-        client.setName("Alina Cristiana");
-        client.setEmail("alina_cristiana@gmail.com");
+        client.setName("Sorina Boz");
+        client.setEmail("sorina.boz@gmail.com");
         client.setContact("01255999");
         clientService.create(client);
 
@@ -127,76 +127,86 @@ public class BookingServiceImplementationTest {
         Assert.assertEquals(expectedBooking, bookings.get(0));
     }
 
-//    @Test
-//    @Transactional
-//    @Rollback(false)
-//    public void getBookingByIdTest() {
-//        Booking expectedBooking = bookingService.getBooking(1L);
-//        List<Booking> bookings = bookingService.getAll();
-//        Assert.assertEquals(expectedBooking, bookings.get(0));
-//    }
-//
-//    @Test
-//    @Transactional
-//    @Rollback(false)
-//    public void getAllBookingsTest() {
-//        List<Booking> bookings = bookingService.getAll();
-//        Assert.assertEquals(1, bookings.size());
-//    }
-//
-//    @Test
-//    @Transactional
-//    @Rollback(false)
-//    public void updateBookingTest() {
-//        Booking booking = bookingService.getBooking(1L);
-//
-//        Client client = new Client();
-//        Property property = new Property();
-//        Host host = new Host();
-//
-//        client.setName("Mihai Madalina");
-//        client.setEmail("madalina.mihai@gmail.com");
-//        client.setContact("015577889");
-//        clientService.create(client);
-//
-//        host.setName("Boz");
-//        host.setEmail("sorina.boz@gmail.com");
-//        hostService.create(host);
-//
-//        property.setName("Traian");
-//        property.setTelephone("45599965");
-//        property.setEmail("contact@traian.com");
-//        property.setAddress("Iasi");
-//        property.setHost(host);
-//        propertyService.create(property);
-//
-//        Date checkInDate = new GregorianCalendar(2020, Calendar.JANUARY, 28).getTime();
-//        booking.setCheckIn(checkInDate);
-//        Date checkOutDate = new GregorianCalendar(2020, Calendar.FEBRUARY, 7).getTime();
-//        booking.setCheckOut(checkOutDate);
-//
-//        booking.setPersonsNo(2);
-//        booking.setRoomType(RoomType.DOUBLE);
-//        booking.setRoomsNo(1);
-//        booking.setBookingDate();
-//        booking.setClient(client);
-//        booking.setProperty(property);
-//        booking.onCreate();
-//
-//        Booking expectedBooking = bookingService.update(booking);
-//        Booking actualBooking = bookingService.getBooking(1L);
-//        Assert.assertEquals(expectedBooking, actualBooking);
-//    }
-//
-//    @Test
-//    @Transactional
-//    @Rollback(false)
-//    public void deleteBookingTest() {
-//        List<Booking> bookings = bookingService.getAll();
-//        int size = bookings.size();
-//        Booking booking = bookingService.getBooking(1L);
-//        bookingService.delete(booking);
-//        bookings = bookingService.getAll();
-//        Assert.assertEquals(size - 1, bookings.size());
-//    }
+    @Test
+    @Transactional
+    @Rollback(false)
+    public void getBookingByIdTest() {
+        Booking expectedBooking = bookingService.getBooking(1L);
+        List<Booking> bookings = bookingService.getAll();
+        Assert.assertEquals(expectedBooking, bookings.get(0));
+    }
+
+    @Test
+    @Transactional
+    @Rollback(false)
+    public void getAllBookingsTest() {
+        List<Booking> bookings = bookingService.getAll();
+        Assert.assertEquals(1, bookings.size());
+    }
+
+    @Test
+    @Transactional
+    @Rollback(false)
+    public void updateBookingTest() {
+        Booking booking = bookingService.getBooking(1L);
+
+        Client client = new Client();
+        Property property = new Property();
+        Host host = new Host();
+
+        client.setName("Mihai Madalina");
+        client.setEmail("madalina_mihai93@yahoo.com");
+        client.setContact("015577889");
+        clientService.create(client);
+
+        host.setName("Boz");
+        host.setEmail("sorina.boz@gmail.com");
+        hostService.create(host);
+
+        property.setName("Traian");
+        property.setTelephone("45599965");
+        property.setEmail("contact@traian.com");
+        property.setAddress("Iasi");
+        property.setHost(host);
+        propertyService.create(property);
+
+        Date checkInDate = new GregorianCalendar(2020, Calendar.JANUARY, 28).getTime();
+        booking.setCheckIn(checkInDate);
+        Date checkOutDate = new GregorianCalendar(2020, Calendar.FEBRUARY, 7).getTime();
+        booking.setCheckOut(checkOutDate);
+
+        booking.setPersonsNo(2);
+        booking.setRoomType(RoomType.DOUBLE);
+        booking.setRoomsNo(1);
+        booking.setBookingDate();
+        booking.setClient(client);
+        booking.setProperty(property);
+        booking.onCreate();
+
+        Booking expectedBooking = bookingService.update(booking);
+        Booking actualBooking = bookingService.getBooking(1L);
+        Assert.assertEquals(expectedBooking, actualBooking);
+    }
+
+    @Test
+    @Transactional
+    @Rollback(false)
+    public void deleteBookingTest() {
+        List<Booking> bookings = bookingService.getAll();
+        int size = bookings.size();
+        Booking booking = bookingService.getBooking(1L);
+        bookingService.delete(booking);
+        bookings = bookingService.getAll();
+        Assert.assertEquals(size - 1, bookings.size());
+    }
+
+    @Test
+    @Rollback(false)
+    @Transactional
+    public void sendBookingEmailTest(){
+        Availability availability = availabilityService.getAvailability(1L);
+        Booking booking = bookingService.getBooking(1L);
+
+        bookingService.sendBookingEmail(booking,availability);
+    }
 }

@@ -18,12 +18,15 @@
         <dependency>
             <groupId>ro.sda</groupId>
             <artifactId>booking-core</artifactId>
+            <version>${project.parent.version}</version>
         </dependency>
 
         <dependency>
             <groupId>ro.sda</groupId>
-            <artifactId>booking-core</artifactId>
+            <artifactId>booking-commons</artifactId>
+            <version>${project.parent.version}</version>
         </dependency>
+
         <!-- INTERNAL Dependencies END -->
 
         <!-- SPRING Dependencies START -->
@@ -57,12 +60,14 @@
             <groupId>javax.servlet</groupId>
             <artifactId>servlet-api</artifactId>
         </dependency>
+
         <dependency>
             <groupId>org.springframework</groupId>
             <artifactId>spring-tx</artifactId>
             <version>4.3.19.RELEASE</version>
             <scope>compile</scope>
         </dependency>
+
         <!-- JAVAX SERVLET Dependencies END -->
     </dependencies>
 

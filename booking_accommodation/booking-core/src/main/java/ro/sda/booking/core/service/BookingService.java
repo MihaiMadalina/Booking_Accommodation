@@ -1,5 +1,6 @@
 package ro.sda.booking.core.service;
 
+import ro.sda.booking.core.entity.Availability;
 import ro.sda.booking.core.entity.Booking;
 
 import java.util.List;
@@ -15,4 +16,6 @@ public interface BookingService {
     Booking update(Booking booking);
 
     void delete(Booking booking);
+
+    void sendBookingEmail(Booking booking, Availability availability);
 }

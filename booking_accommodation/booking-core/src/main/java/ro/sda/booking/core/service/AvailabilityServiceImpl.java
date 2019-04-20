@@ -14,6 +14,7 @@ public class AvailabilityServiceImpl implements AvailabilityService {
 
     @Autowired
     private AvailabilityRepository availabilityRepository;
+
     @Override
     public Availability create(Availability availability) {
         return availabilityRepository.save(availability);
@@ -42,6 +43,11 @@ public class AvailabilityServiceImpl implements AvailabilityService {
     @Override
     public void delete(Availability availability) {
         availabilityRepository.delete(availability);
+    }
+
+    @Override
+    public boolean existsAvailabilityByFromDateGreaterThanEqualAndToDateLessThanEqual(Date fromDate, Date toDate) {
+        return availabilityRepository.existsAvailabilityByFromDateGreaterThanEqualAndToDateLessThanEqual(fromDate, toDate);
     }
 
     @Override

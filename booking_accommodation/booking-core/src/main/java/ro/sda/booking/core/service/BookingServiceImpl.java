@@ -3,6 +3,7 @@ package ro.sda.booking.core.service;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
+import ro.sda.booking.commons.SendEmail;
 import ro.sda.booking.core.entity.Availability;
 import ro.sda.booking.core.entity.Booking;
 import ro.sda.booking.core.repository.AvailabilityRepository;
@@ -19,79 +20,13 @@ public class BookingServiceImpl implements BookingService {
     private BookingRepository bookingRepository;
 
     @Autowired
-    private AvailabilityRepository availabilityRepository;
-
-    @Autowired
     private AvailabilityService availabilityService;
 
-//    @Override
-//    public Booking create(Booking booking) {
-//        return bookingRepository.save(booking);
-//    }
+    private SendEmail sendEmail = new SendEmail();
 
-//    @Override
-//    public Booking create(Booking booking) {
-//        booking = bookingRepository.save(booking);
-//        Date fromDate = booking.getCheckIn();
-//        Date toDate = booking.getCheckOut();
-//        List<Availability> availabilitiesBooked = booking.getAvailabilityList();
-//        for (int i = 0; i < availabilitiesBooked.size() ; i++) {
-//            if (availabilitiesBooked.get(i).getFromDate().compareTo(fromDate)==0 && availabilitiesBooked.get(i).getToDate().compareTo(toDate)==0){
-//                availabilitiesBooked.get(i).setAvailable(false);
-//                availabilityService.update(availabilitiesBooked.get(i));
-//            } else if (availabilitiesBooked.get(i).getFromDate().compareTo(fromDate)<0 && availabilitiesBooked.get(i).getToDate().compareTo(toDate)>0 ){
-//                Availability currentAvailability =  availabilitiesBooked.get(i);
-//                currentAvailability.setAvailable(false);
-//                availabilityService.update(currentAvailability);
-//                Availability availabilityBeforeBookingDateRange = new Availability();
-//                availabilityBeforeBookingDateRange.setProperty(currentAvailability.getProperty());
-//                availabilityBeforeBookingDateRange.setFromDate(currentAvailability.getFromDate());
-//                availabilityBeforeBookingDateRange.setToDate(fromDate);
-//                availabilityBeforeBookingDateRange.setPriceSingle(currentAvailability.getPriceDouble());
-//                availabilityBeforeBookingDateRange.setRoomName(currentAvailability.getRoomName());
-//                availabilityBeforeBookingDateRange.setRoomType(currentAvailability.getRoomType());
-//                availabilityBeforeBookingDateRange.setAvailable(true);
-//                availabilityService.create(availabilityBeforeBookingDateRange);
-//                Availability availabilityAfterBookingDateRange = new Availability();
-//                availabilityAfterBookingDateRange.setProperty(currentAvailability.getProperty());
-//                availabilityAfterBookingDateRange.setFromDate(toDate);
-//                availabilityAfterBookingDateRange.setToDate(currentAvailability.getToDate());
-//                availabilityAfterBookingDateRange.setPriceSingle(currentAvailability.getPriceDouble());
-//                availabilityAfterBookingDateRange.setRoomName(currentAvailability.getRoomName());
-//                availabilityAfterBookingDateRange.setRoomType(currentAvailability.getRoomType());
-//                availabilityAfterBookingDateRange.setAvailable(true);
-//                availabilityService.create(availabilityAfterBookingDateRange);
-//            } else if (availabilitiesBooked.get(i).getFromDate().compareTo(fromDate)<0 && availabilitiesBooked.get(i).getToDate().compareTo(toDate)==0 ){
-//                Availability currentAvailability =  availabilitiesBooked.get(i);
-//                currentAvailability.setAvailable(false);
-//                availabilityService.update(currentAvailability);
-//                Availability availabilityBeforeBookingDateRange = new Availability();
-//                availabilityBeforeBookingDateRange.setProperty(currentAvailability.getProperty());
-////                availabilityBeforeBookingDateRange.setFromDate(currentAvailability.getFromDate());
-////                availabilityBeforeBookingDateRange.setToDate(fromDate);
-////                availabilityBeforeBookingDateRange.setPriceSingle(currentAvailability.getPriceDouble());
-////                availabilityBeforeBookingDateRange.setRoomName(currentAvailability.getRoomName());
-////                availabilityBeforeBookingDateRange.setRoomType(currentAvailability.getRoomType());
-////                availabilityBeforeBookingDateRange.setAvailable(true);
-////                availabilityService.create(availabilityBeforeBookingDateRange);
-//            }
-//            else if (availabilitiesBooked.get(i).getFromDate().compareTo(fromDate)==0 && availabilitiesBooked.get(i).getToDate().compareTo(toDate)>0 ){
-//                Availability currentAvailability =  availabilitiesBooked.get(i);
-//                currentAvailability.setAvailable(false);
-//                availabilityService.update(currentAvailability);
-//                 Availability availabilityAfterBookingDateRange = new Availability();
-////                availabilityAfterBookingDateRange.setProperty(currentAvailability.getProperty());
-////                availabilityAfterBookingDateRange.setFromDate(toDate);
-////                availabilityAfterBookingDateRange.setToDate(currentAvailability.getToDate());
-////                availabilityAfterBookingDateRange.setPriceSingle(currentAvailability.getPriceDouble());
-////                availabilityAfterBookingDateRange.setRoomName(currentAvailability.getRoomName());
-////                availabilityAfterBookingDateRange.setRoomType(currentAvailability.getRoomType());
-////                availabilityAfterBookingDateRange.setAvailable(true);
-////                availabilityService.create(availabilityAfterBookingDateRange);
-//            }
-//        }
-//        return booking;
-//    }
+    @Autowired
+    private AvailabilityRepository availabilityRepository;
+
 
     @Override
     public Booking create(Booking booking) {
@@ -100,9 +35,6 @@ public class BookingServiceImpl implements BookingService {
         Date toDate = booking.getCheckOut();
         List<Availability> availabilitiesBooked = booking.getAvailabilityList();
         for (int i = 0; i < availabilitiesBooked.size() ; i++) {
-//                availabilitiesBooked.get(i).setAvailable(false);
-//                availabilitiesBooked.get(i).setBooking(booking);
-//                availabilityService.update(availabilitiesBooked.get(i));
            if (availabilitiesBooked.get(i).getFromDate().compareTo(fromDate)<0){
                 Availability currentAvailability =  availabilitiesBooked.get(i);
                 Availability availabilityBeforeBookingDateRange = new Availability();
@@ -112,7 +44,6 @@ public class BookingServiceImpl implements BookingService {
                 availabilityBeforeBookingDateRange.setPriceSingle(currentAvailability.getPriceSingle());
                 availabilityBeforeBookingDateRange.setRoomName(currentAvailability.getRoomName());
                 availabilityBeforeBookingDateRange.setRoomType(currentAvailability.getRoomType());
-                availabilityBeforeBookingDateRange.setAvailable(true);
                 availabilityService.create(availabilityBeforeBookingDateRange);
 
             }
@@ -125,7 +56,6 @@ public class BookingServiceImpl implements BookingService {
                availabilityAfterBookingDateRange.setPriceSingle(currentAvailability.getPriceSingle());
                availabilityAfterBookingDateRange.setRoomName(currentAvailability.getRoomName());
                availabilityAfterBookingDateRange.setRoomType(currentAvailability.getRoomType());
-               availabilityAfterBookingDateRange.setAvailable(true);
                availabilityService.create(availabilityAfterBookingDateRange);
             }
 
@@ -153,5 +83,36 @@ public class BookingServiceImpl implements BookingService {
     @Override
     public void delete(Booking booking) {
         bookingRepository.delete(booking);
+    }
+
+    @Override
+    public void sendBookingEmail(Booking booking, Availability availability) {
+
+        String message = "Dear " + booking.getClient().getName() + ","
+                + "\n"
+                + "\n" + "Thank you for choosing " + booking.getProperty().getName() + " Hotel" + ". Please find below your booking details: "
+                + "\n"
+                + "\n" + "Reservation number: " + booking.getBookingNo()
+                + "\n" + "Number of rooms: " + booking.getRoomsNo()
+                + "\n" + "Room type: " + booking.getRoomType()
+                + "\n" + "Number of adults/child: " + booking.getPersonsNo()
+                + "\n" + "Arrival date: " + booking.getCheckIn()
+                + "\n" + "Departure date: " + booking.getCheckOut()
+                + "\n" + "Booking date: " + booking.getBookingDate()
+                + "\n"
+                + "\n" + "We look forward to welcoming you to " + booking.getProperty().getName() + " Hotel."
+                + "\n"
+                + "\n" + "Thanks and Regards,"
+                + "\n" + "Booking Team";
+
+        String email = booking.getClient().getEmail();
+        String subject = "Booking confirmation ";
+        boolean isAvailable = availabilityService.existsAvailabilityByFromDateGreaterThanEqualAndToDateLessThanEqual(booking.getCheckIn(),booking.getCheckOut());
+        if(!isAvailable){
+            sendEmail.sendEmail(message,email,subject);
+        }else{
+            String nonAvailabilityMessage = "Apologies, currently we have no available rooms in the given period.";
+            sendEmail.sendEmail(nonAvailabilityMessage,email,subject);
+        }
     }
 }

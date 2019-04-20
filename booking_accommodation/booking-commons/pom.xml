@@ -14,6 +14,12 @@
     <name>sda-booking-commons</name>
 
     <dependencies>
+
+        <dependency>
+            <groupId>com.sun.mail</groupId>
+            <artifactId>javax.mail</artifactId>
+            <version>1.6.2</version>
+        </dependency>
         <!-- HIBERNATE Dependencies START -->
         <dependency>
             <groupId>org.hibernate</groupId>
