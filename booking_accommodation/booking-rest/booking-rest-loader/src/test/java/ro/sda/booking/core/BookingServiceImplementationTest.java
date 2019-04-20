@@ -11,10 +11,7 @@ import org.springframework.transaction.annotation.Transactional;
 import ro.sda.booking.core.entity.*;
 import ro.sda.booking.core.service.*;
 
-import java.util.Calendar;
-import java.util.Date;
-import java.util.GregorianCalendar;
-import java.util.List;
+import java.util.*;
 
 @RunWith(SpringJUnit4ClassRunner.class)
 @ContextConfiguration("classpath:/spring-config/spring-root.xml")
@@ -34,7 +31,7 @@ public class BookingServiceImplementationTest {
     private HostService hostService;
 
     @Autowired
-    private AvailabilityService availabilityService;
+    AvailabilityService availabilityService;
 
     @Test
     @Rollback(false)
@@ -61,18 +58,70 @@ public class BookingServiceImplementationTest {
         propertyService.create(property);
 
         Booking expectedBooking = new Booking();
-        Date checkInDate = new GregorianCalendar(2019, Calendar.MAY, 1).getTime();
+        Date checkInDate = new GregorianCalendar(2019, Calendar.APRIL, 5).getTime();
         expectedBooking.setCheckIn(checkInDate);
-        Date checkOutDate = new GregorianCalendar(2019, Calendar.MAY, 7).getTime();
+        Date checkOutDate = new GregorianCalendar(2019, Calendar.APRIL, 25).getTime();
         expectedBooking.setCheckOut(checkOutDate);
 
-        expectedBooking.setPersonsNo(1);
+        Availability availability1 = new Availability();
+        availability1.setProperty(property);
+        availability1.setRoomName("Room1");
+        availability1.setRoomType(RoomType.SINGLE);
+        availability1.setPriceSingle(100.00);
+        Date availableFromDate = new GregorianCalendar(2019, Calendar.APRIL, 1).getTime();
+        availability1.setFromDate(availableFromDate);
+        Date availableToDate = new GregorianCalendar(2019, Calendar.APRIL, 30).getTime();
+        availability1.setToDate(availableToDate);
+        availabilityService.create(availability1);
+
+        Availability availability2 = new Availability();
+        availability2.setProperty(property);
+        availability2.setRoomName("Room2");
+        availability2.setRoomType(RoomType.SINGLE);
+        availability2.setPriceSingle(100.00);
+        Date availableFromDate2 = new GregorianCalendar(2019, Calendar.APRIL, 5).getTime();
+        availability2.setFromDate(availableFromDate2);
+        Date availableToDate2 = new GregorianCalendar(2019, Calendar.APRIL, 30).getTime();
+        availability2.setToDate(availableToDate2);
+        availabilityService.create(availability2);
+
+        Availability availability3 = new Availability();
+        availability3.setProperty(property);
+        availability3.setRoomName("Room3");
+        availability3.setRoomType(RoomType.SINGLE);
+        availability3.setPriceSingle(100.00);
+        Date availableFromDate3 = new GregorianCalendar(2019, Calendar.APRIL, 1).getTime();
+        availability3.setFromDate(availableFromDate3);
+        Date availableToDate3 = new GregorianCalendar(2019, Calendar.APRIL, 25).getTime();
+        availability3.setToDate(availableToDate3);
+        availabilityService.create(availability3);
+
+        Availability availability4 = new Availability();
+        availability4.setProperty(property);
+        availability4.setRoomName("Room4");
+        availability4.setRoomType(RoomType.SINGLE);
+        availability4.setPriceSingle(100.00);
+        Date availableFromDate4 = new GregorianCalendar(2019, Calendar.APRIL, 5).getTime();
+        availability4.setFromDate(availableFromDate4);
+        Date availableToDate4 = new GregorianCalendar(2019, Calendar.APRIL, 25).getTime();
+        availability4.setToDate(availableToDate4);
+        availabilityService.create(availability4);
+
+
+
+        expectedBooking.setPersonsNo(4);
         expectedBooking.setRoomType(RoomType.SINGLE);
-        expectedBooking.setRoomsNo(1);
+        expectedBooking.setRoomsNo(4);
         expectedBooking.setBookingDate();
         expectedBooking.setClient(client);
         expectedBooking.setProperty(property);
         expectedBooking.onCreate();
+        List<Availability> availabilities = new ArrayList<>();
+        availabilities.add(availability1);
+        availabilities.add(availability2);
+        availabilities.add(availability3);
+        availabilities.add(availability4);
+        expectedBooking.setAvailabilityList(availabilities);
         bookingService.create(expectedBooking);
         List<Booking> bookings = bookingService.getAll();
         Assert.assertEquals(expectedBooking, bookings.get(0));

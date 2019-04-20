@@ -60,7 +60,6 @@ public class AvailabilityRestService {
         return availabilityService.findAvailabilityByFromDateGreaterThanEqualAndToDateLessThanEqual(fromLocalDate, toLocalDate);
     }
 
-
     @Path("/delete")
     @DELETE
     @Produces(MediaType.APPLICATION_JSON)

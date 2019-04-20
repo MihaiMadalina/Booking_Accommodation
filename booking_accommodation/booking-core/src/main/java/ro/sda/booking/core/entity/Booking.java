@@ -6,6 +6,7 @@ import javax.persistence.*;
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
 import java.util.Date;
+import java.util.List;
 import java.util.Objects;
 
 @Entity
@@ -43,6 +44,21 @@ public class Booking extends BaseEntity {
 
     @Column(name = "booking_date", nullable = false)
     private String bookingDate;
+
+    @OneToMany (mappedBy = "booking")
+    private List<Availability> availabilityList;
+
+    public void setBookingDate(String bookingDate) {
+        this.bookingDate = bookingDate;
+    }
+
+    public List<Availability> getAvailabilityList() {
+        return availabilityList;
+    }
+
+    public void setAvailabilityList(List<Availability> availabilityList) {
+        this.availabilityList = availabilityList;
+    }
 
     public String getBookingNo() {
         return bookingNo;

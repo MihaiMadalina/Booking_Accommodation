@@ -93,32 +93,29 @@ public class Availability extends BaseEntity {
         if (this == o) return true;
         if (!(o instanceof Availability)) return false;
         Availability that = (Availability) o;
-        return super.getId()==(that.getId()) &&
-                getRoomName().equals(that.getRoomName()) &&
+        return getRoomName().equals(that.getRoomName()) &&
                 getFromDate().equals(that.getFromDate()) &&
                 getToDate().equals(that.getToDate()) &&
                 getRoomType() == that.getRoomType() &&
                 getPriceDouble().equals(that.getPriceDouble()) &&
-                getPriceSingle().equals(that.getPriceSingle()) &&
-                getProperty().equals(that.getProperty());
+                getPriceSingle().equals(that.getPriceSingle());
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(getRoomName(), getFromDate(), getToDate(), getRoomType(), getPriceDouble(), getPriceSingle(), getProperty(), getId());
+        return Objects.hash(getRoomName(), getFromDate(), getToDate(), getRoomType(), getPriceDouble(), getPriceSingle());
     }
 
     @Override
     public String toString() {
         return "Availability{" +
-                "id=" + getId() +
-                ", roomName='" + roomName + '\'' +
+                "roomName='" + roomName + '\'' +
                 ", fromDate=" + fromDate +
                 ", toDate=" + toDate +
                 ", roomType=" + roomType +
                 ", priceDouble=" + priceDouble +
                 ", priceSingle=" + priceSingle +
-                ", property=" + property +
                 '}';
     }
+
 }

@@ -55,5 +55,4 @@ public class AvailabilityServiceImpl implements AvailabilityService {
         return availabilityRepository.findAvailabilityByFromDateGreaterThanEqualAndToDateLessThanEqual(fromDate, toDate);
     }
 
-
 }
