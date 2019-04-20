@@ -1,6 +1,8 @@
 package ro.sda.booking.core.service;
 
 import ro.sda.booking.core.entity.Availability;
+import sun.util.calendar.BaseCalendar;
+
 import java.util.Date;
 import java.util.List;
 
@@ -18,4 +20,5 @@ public interface AvailabilityService {
     void delete(Availability availability);
 
     List<Availability> findAvailabilityByFromDateGreaterThanEqualAndToDateLessThanEqual (Date fromDate, Date toDate);
+
 }
