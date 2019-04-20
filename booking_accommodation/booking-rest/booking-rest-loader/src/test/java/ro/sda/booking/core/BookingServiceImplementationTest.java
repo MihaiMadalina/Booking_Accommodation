@@ -30,8 +30,9 @@ public class BookingServiceImplementationTest {
     @Autowired
     private HostService hostService;
 
+
     @Autowired
-    AvailabilityService availabilityService;
+    private AvailabilityService availabilityService;
 
     @Test
     @Rollback(false)

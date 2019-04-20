@@ -3,6 +3,7 @@ package ro.sda.booking.core.service;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
+import ro.sda.booking.core.entity.Availability;
 import ro.sda.booking.commons.SendEmail;
 import ro.sda.booking.core.entity.Availability;
 import ro.sda.booking.core.entity.Booking;
